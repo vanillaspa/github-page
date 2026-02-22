@@ -1,3 +1,6 @@
+# vanillaspa
+This is the vanillaspa repository for Github Pages- For the boilerplate code, please check out the [boilerplate repo](https://github.com/vanillaspa/boilerplate).
+
 ## Hi there 👋
 
 # Vanilla SPA
@@ -19,10 +22,10 @@ on top of <a title="Vite" href="https://vitejs.dev"><img height="20" alt="Vitejs
 
 ### Getting started
 
-Running Vanilla SPA is as easy as cloning the current repository.
+Running Vanilla SPA is as easy as cloning the boilerplate repository.
 ```bash
-  git clone https://github.com/vanillaspa/vanillaspa.git
-  cd vanillaspa
+  git clone https://github.com/vanillaspa/boilerplate.git
+  cd boilerplate
   npm install
 ```
 and then simply 
@@ -43,9 +46,7 @@ To quickly start a vanillaspa project just remove the comment in the bottom of t
 
 You will be using dedicated `.html` files to create your Single File Components (SFCs). Just implement your SFCs à la Vue or Svelte with a ```script```, ```style``` and ```template``` tag on the top-level of the `.html` file.
 
-Just put your custom elements in the [./public/components/](https://github.com/vanillaspa/vanillaspa/public/components) folder. A `/src/components/index.js` file with a map of your components is automagically generated each time you run `npm run dev`.
-
-You just have to stick to (custom elements naming conventions)[https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name].
+Just put your custom elements in the [./src/components/](https://github.com/vanillaspa/vanillaspa/src/components) folder. All the files under `/src/components` are automagically defined in the customElements registry. You just have to stick to (custom elements naming conventions)[https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name].
 
 After having imported the `web-components` module, your custom elements can be instantiated immediately.
 
@@ -67,7 +68,7 @@ After having imported the `web-components` module, your custom elements can be i
 - local first SQLite database for global state management with the Origin Private File System (OPFS). Your data stays private.
 - dedicated workers for database pooling
 - offline capabilities
-- history-driven sitemap router [navigation module](https://github.com/vanillaspa/vanillaspa/blob/main/public/components/app/app-router.html)
+- history-driven sitemap router [navigation module](https://github.com/vanillaspa/boilerplate/blob/main/src/components/router/router-app.html)
 - support for containerized builds. Docker ready.
 - https support out of the box ([@vitejs/plugin-basic-ssl](https://github.com/vitejs/vite-plugin-basic-ssl))
 - basic functionality in under <100LOC
@@ -82,6 +83,6 @@ If you still have questions please let me know. Your opinion is valuable to me a
 
 ## Example
 
-Adding a router navigation is very easy. [As the example shows](https://github.com/vanillaspa/vanillaspa/blob/main/public/components/app/app-router.html) You can have an entire navigation in one single html file defined as just another custom element. After having it integrated into your app with a single tag (`<app-router></app-router>`), you can have routing support and all the things you would expect.
+Adding a router navigation is very easy. [As the example shows](https://github.com/vanillaspa/boilerplate/blob/main/src/components/router/router-app.html) You can have an entire navigation in one single html file defined as just another custom element. After having it integrated into your app with a single tag (`<router-app></router-app>`), you can have routing support and all the things you would expect.
 
 Of course you are completely free to customize the themes, modules and components and make them whatever you want them to become!
