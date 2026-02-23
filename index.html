@@ -614,22 +614,21 @@
       </p>
 
       <pre><code>&lt;script&gt;
-// Direct Shadow DOM access
-const button = shadowDocument.getElementById('my-btn');
-const output = shadowDocument.querySelector('.result');
+  // Direct Shadow DOM access
+  const button = shadowDocument.getElementById('my-btn');
+  const output = shadowDocument.querySelector('.result');
 
-button.addEventListener('click', () => {
-  output.textContent = 'Clicked!';
-});
+  button.addEventListener('click', () => {
+    output.textContent = 'Clicked!';
+  });
 
-// Access the host element
-const host = shadowDocument.host;
-console.log(host.tagName); // "APP-START"
+  // Access the host element
+  const host = shadowDocument.host;
+  console.log(host.tagName); // "APP-START"
 &lt;/script&gt;</code></pre>
 
       <div class="callout warning">
-        <strong>Note:</strong> Scripts run as ES modules. No JavaScript in templates.
-        Use <code>addEventListener</code> or the <code>data-action</code> pattern instead.
+        <strong>Note:</strong> Scripts run as ES modules. Therefore no JS will work in the templates, unless you're using the <code>data-action</code> pattern <a href="#data-action-pattern">below</a>.
       </div>
 
 
@@ -717,7 +716,7 @@ const users = await sqlite.executeQuery(
       <!-- Functions in Templates -->
       <!-- ──────────────────────────────────────────────────────────── -->
 
-      <h3>Using Functions in Templates</h3>
+      <h3 id="data-action-pattern">Using Functions in Templates</h3>
 
       <p>
         Since scripts of custom elements are modules, functions aren't global.
