@@ -510,21 +510,6 @@
       <div class="step">
         <span class="step-number">2</span>
         <div class="step-content">
-          <h3>Set Up the Folder Structure</h3>
-          <pre><code>project/
-├── index.html
-├── package.json
-└── src/
-    ├── components/
-    │   └── app/
-    │        └── app-start.html
-    └── main.js</code></pre>
-        </div>
-      </div>
-
-      <div class="step">
-        <span class="step-number">3</span>
-        <div class="step-content">
           <h3>Configure Scripts</h3>
           <pre><code>{
   "type": "module",
@@ -534,9 +519,35 @@
     "preview": "vite preview",
   }
 }</code></pre>
+<p>
+  For use of SQLite WASM, you MUST <code><a href="https://github.com/vanillaspa/boilerplate/blob/main/vite.config.js">config Vite</a></code>! 
+</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <span class="step-number">3</span>
+        <div class="step-content">
+          <h3>Set Up the Folder Structure</h3>
+          <pre><code>project/
+├── index.html
+├── package.json
+└── src/
+    ├── components/
+    │   └── app/
+    │        └── app-start.html
+    └── main.js</code></pre>
           <p><strong>@vanillaspa/web-components</strong> scans <code>/src/components</code>. All found components are
             added
             automagically to your customElements registry.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <span class="step-number">4</span>
+        <div class="step-content">
+          <h3>Run Dev Server</h3>
+          <pre><code>npm run dev</code></pre>
         </div>
       </div>
 
@@ -547,10 +558,11 @@
       <h3>Your First Component</h3>
 
       <div class="callout">
-        <strong>Filename Convention:</strong> <code>/src/components/{prefix}/{prefix}-{suffix}.html</code> →
-        <code>&lt;prefix-suffix&gt;</code>
-        <br /><br />
-        Example: <code>/src/components/app/app-start.html</code> → <code>&lt;app-start&gt;</code>
+        <strong>Filename Convention:</strong><br/>
+        <code>/src/components/{prefix}/{prefix}-{suffix}.html</code> → <code>&lt;prefix-suffix&gt;</code>
+        <br />
+        Example: <br />
+        <code>/src/components/app/app-start.html</code> → <code>&lt;app-start&gt;</code>
       </div>
 
       <p><strong>File:</strong> <code>/src/components/app/app-start.html</code></p>
@@ -580,9 +592,9 @@
 &lt;/style&gt;
 
 &lt;script&gt;
-// shadowDocument is automatically available!
-const h1 = shadowDocument.querySelector('h1');
-console.log('Component loaded:', h1.textContent);
+  // shadowDocument is automatically available!
+  const h1 = shadowDocument.querySelector('h1');
+  console.log('Component loaded:', h1.textContent);
 &lt;/script&gt;</code></pre>
 
       <div class="callout info">
@@ -616,7 +628,7 @@ console.log(host.tagName); // "APP-START"
 &lt;/script&gt;</code></pre>
 
       <div class="callout warning">
-        <strong>Note:</strong> Scripts run as ES modules, so no <code>onclick="fn()"</code> in templates.
+        <strong>Note:</strong> Scripts run as ES modules. No JavaScript in templates.
         Use <code>addEventListener</code> or the <code>data-action</code> pattern instead.
       </div>
 
