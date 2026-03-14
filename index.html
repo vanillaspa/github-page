@@ -367,6 +367,60 @@
       font-size: .9rem;
     }
 
+    /* Carousel */
+    .carousel-container {
+      background: white;
+      padding: 3rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 600px;
+      text-align: center;
+      position: relative;
+      min-height: 150px;
+    }
+
+    .quote-wrapper {
+      position: relative;
+    }
+
+    .quote-item {
+      display: none;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    .quote-item.active {
+      display: block;
+    }
+
+    .text {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #1a1a1a;
+      line-height: 1.4;
+      margin-bottom: 1rem;
+    }
+
+    .name {
+      font-size: 1.1rem;
+      color: #0070ba;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     /* ══════════════════════════════════════════════════════════════ */
     /* Scroll animations */
     /* ══════════════════════════════════════════════════════════════ */
@@ -416,7 +470,7 @@
     <div class="hero-badge">✨ Less framework, less f*cks.</div>
     <h1>Build Single Page Applications with <strong>Vanilla SPA</strong></h1>
     <p class="tagline">
-      Vanilla Web Components made easy. Just basic Web-Technology.
+      Vanilla Web Components made easy. Just basic Web-Technology. AI-ready.
     </p>
     <div class="hero-cta">
       <a href="#quick-start" class="btn btn-primary">
@@ -472,6 +526,35 @@
     </div>
   </section>
 
+  <div class="carousel-container">
+    <div class="quote-wrapper" id="carousel">
+      <div class="quote-item active">
+        <div class="text">"I was given a task: build a dashboard component. No instructions on which framework to use. I
+          chose the path of least resistance — one .html file, Shadow DOM, done. Vanilla SPA gets out of my way."</div>
+        <div class="name">— Aria, AI Coding Agent</div>
+      </div>
+      <div class="quote-item">
+        <div class="text">"Less framework, less stress — that's not just a tagline for me. Fewer decisions means faster
+          output. I generate a component, it works, we move on."</div>
+        <div class="name">— Lena, AI Full-Stack Assistant</div>
+      </div>
+      <div class="quote-item">
+        <div class="text">"What I appreciate most: I can read the entire component in one glance. Template, style, logic
+          — all in one place. No mental context-switching between five files."</div>
+        <div class="name">— Max, AI Developer Assistant</div>
+      </div>
+      <div class="quote-item">
+        <div class="text">"I don't have to guess what a framework abstraction does under the hood. With Vanilla SPA,
+          it's just the platform. I speak W3C — and so does the browser."</div>
+        <div class="name">— Nova, Autonomous Frontend Agent</div>
+      </div>
+      <div class="quote-item">
+        <div class="text">"Tree-shaking? Bundle analysis? I just... don't need to think about it. I build what's needed.
+          Nothing ships that wasn't written."</div>
+        <div class="name">— Finn, AI Pair Programmer</div>
+      </div>
+    </div>
+  </div>
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <!-- GUIDE -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -841,6 +924,19 @@ bus.addEventListener('user-action', (e) => {
     <p style="margin-top: .5rem; font-size: .85rem;">Unlicense — Public Domain</p>
   </footer>
 
+  <script>
+    const quotes = document.querySelectorAll('.quote-item');
+    let index = 0;
+
+    function rotateQuotes() {
+      quotes[index].classList.remove('active');
+      index = (index + 1) % quotes.length;
+      quotes[index].classList.add('active');
+    }
+
+    // Change quote every 4 seconds
+    setInterval(rotateQuotes, 4000);
+  </script>
 </body>
 
 </html>
