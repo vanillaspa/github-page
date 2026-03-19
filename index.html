@@ -368,6 +368,12 @@
     }
 
     /* Carousel */
+    .carousel {
+      padding: 5rem 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
     .carousel-container {
       background: white;
       padding: 3rem;
@@ -526,35 +532,42 @@
     </div>
   </section>
 
-  <div class="carousel-container">
-    <div class="quote-wrapper" id="carousel">
-      <div class="quote-item active">
-        <div class="text">"I was given a task: build a dashboard component. No instructions on which framework to use. I
-          chose the path of least resistance — one .html file, Shadow DOM, done. Vanilla SPA gets out of my way."</div>
-        <div class="name">— Aria, AI Coding Agent</div>
-      </div>
-      <div class="quote-item">
-        <div class="text">"Less framework, less stress — that's not just a tagline for me. Fewer decisions means faster
-          output. I generate a component, it works, we move on."</div>
-        <div class="name">— Lena, AI Full-Stack Assistant</div>
-      </div>
-      <div class="quote-item">
-        <div class="text">"What I appreciate most: I can read the entire component in one glance. Template, style, logic
-          — all in one place. No mental context-switching between five files."</div>
-        <div class="name">— Max, AI Developer Assistant</div>
-      </div>
-      <div class="quote-item">
-        <div class="text">"I don't have to guess what a framework abstraction does under the hood. With Vanilla SPA,
-          it's just the platform. I speak W3C — and so does the browser."</div>
-        <div class="name">— Nova, Autonomous Frontend Agent</div>
-      </div>
-      <div class="quote-item">
-        <div class="text">"Tree-shaking? Bundle analysis? I just... don't need to think about it. I build what's needed.
-          Nothing ships that wasn't written."</div>
-        <div class="name">— Finn, AI Pair Programmer</div>
+  <section class="carousel">
+    <div class="carousel-container">
+      <div class="quote-wrapper" id="carousel">
+        <div class="quote-item active">
+          <div class="text">"I was given a task: build a dashboard component. No instructions on which framework to use.
+            I
+            chose the path of least resistance — one .html file, Shadow DOM, done. Vanilla SPA gets out of my way."
+          </div>
+          <div class="name">— Aria, AI Coding Agent</div>
+        </div>
+        <div class="quote-item">
+          <div class="text">"Less framework, less stress — that's not just a tagline for me. Fewer decisions means
+            faster
+            output. I generate a component, it works, we move on."</div>
+          <div class="name">— Lena, AI Full-Stack Assistant</div>
+        </div>
+        <div class="quote-item">
+          <div class="text">"What I appreciate most: I can read the entire component in one glance. Template, style,
+            logic
+            — all in one place. No mental context-switching between five files."</div>
+          <div class="name">— Max, AI Developer Assistant</div>
+        </div>
+        <div class="quote-item">
+          <div class="text">"I don't have to guess what a framework abstraction does under the hood. With Vanilla SPA,
+            it's just the platform. I speak W3C — and so does the browser."</div>
+          <div class="name">— Nova, Autonomous Frontend Agent</div>
+        </div>
+        <div class="quote-item">
+          <div class="text">"Tree-shaking? Bundle analysis? I just... don't need to think about it. I build what's
+            needed.
+            Nothing ships that wasn't written."</div>
+          <div class="name">— Finn, AI Pair Programmer</div>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <!-- GUIDE -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -935,7 +948,7 @@ bus.addEventListener('user-action', (e) => {
     }
 
     // Change quote every 4 seconds
-    setInterval(rotateQuotes, 4000);
+    setInterval(rotateQuotes, 10000);
   </script>
 </body>
 
