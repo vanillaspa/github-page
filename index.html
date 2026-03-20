@@ -101,6 +101,133 @@
       flex-wrap: wrap;
     }
 
+    .event-contract-hero {
+      max-width: 680px;
+      margin: 3rem auto;
+      padding: 2.5rem 2rem;
+      border: 1px solid rgba(128, 128, 128, 0.15);
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .event-contract-hero h2 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    .ech-sub {
+      font-size: 1rem;
+      opacity: 0.7;
+      max-width: 520px;
+      margin: 0 auto 1.75rem;
+      line-height: 1.6;
+    }
+
+    .ech-pain {
+      list-style: none;
+      padding: 0;
+      margin: 0 auto 1.25rem;
+      max-width: 480px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .ech-pain li {
+      font-size: 0.9rem;
+      opacity: 0.65;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .ech-pain li::before {
+      content: "–";
+      position: absolute;
+      left: 0;
+      opacity: 0.4;
+    }
+
+    .ech-pain code {
+      font-family: monospace;
+      font-size: 0.88em;
+    }
+
+    .ech-reframe {
+      font-size: 0.9rem;
+      opacity: 0.5;
+      font-style: italic;
+      margin-bottom: 1.75rem;
+    }
+
+    .ech-solution {
+      background: rgba(128, 128, 128, 0.05);
+      border: 1px solid rgba(128, 128, 128, 0.1);
+      border-radius: 8px;
+      padding: 1.5rem;
+      max-width: 540px;
+      margin: 0 auto 1.5rem;
+      text-align: left;
+    }
+
+    .ech-solution p {
+      font-size: 0.92rem;
+      line-height: 1.7;
+      opacity: 0.85;
+      margin: 0 0 0.65rem;
+    }
+
+    .ech-solution p:last-child {
+      margin-bottom: 0;
+    }
+
+    .ech-solution strong {
+      font-weight: 600;
+    }
+
+    .ech-outcomes {
+      list-style: none;
+      padding: 0;
+      margin: 0 auto 2rem;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      text-align: left;
+    }
+
+    .ech-outcomes li {
+      font-size: 0.88rem;
+      opacity: 0.6;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .ech-outcomes li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      opacity: 0.45;
+    }
+
+    .ech-cta {
+      display: inline-block;
+      padding: 0.7rem 1.6rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      text-decoration: none;
+      background: #ff69b4;
+      color: #fff;
+      transition: opacity 0.15s;
+    }
+
+    .ech-cta:hover {
+      opacity: 0.85;
+    }
+
     .btn {
       display: inline-flex;
       align-items: center;
@@ -234,8 +361,15 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* ══════════════════════════════════════════════════════════════ */
@@ -422,8 +556,15 @@
     /* ══════════════════════════════════════════════════════════════ */
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: none; }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
     }
 
     .feature-card,
@@ -431,10 +572,21 @@
       animation: fadeUp .6s ease backwards;
     }
 
-    .feature-card:nth-child(1) { animation-delay: .1s; }
-    .feature-card:nth-child(2) { animation-delay: .2s; }
-    .feature-card:nth-child(3) { animation-delay: .3s; }
-    .feature-card:nth-child(4) { animation-delay: .4s; }
+    .feature-card:nth-child(1) {
+      animation-delay: .1s;
+    }
+
+    .feature-card:nth-child(2) {
+      animation-delay: .2s;
+    }
+
+    .feature-card:nth-child(3) {
+      animation-delay: .3s;
+    }
+
+    .feature-card:nth-child(4) {
+      animation-delay: .4s;
+    }
 
     /* ══════════════════════════════════════════════════════════════ */
     /* Responsive breakpoints                                        */
@@ -534,6 +686,56 @@
     </div>
   </section>
 
+  <!-- ═══════════════════════════════════════════════════════  -->
+  <!-- EVENT CONTRACT SUBSECTION                             -->
+  <!-- ═══════════════════════════════════════════════════════  -->
+
+  <section class="event-contract-hero" id="event-contract">
+
+    <h2>Stop Debugging Events. Start Reading Contracts.</h2>
+
+    <p class="ech-sub">
+      The one-page system that eliminates 80% of event-driven UI bugs —
+      before you write a single component.
+    </p>
+
+    <ul class="ech-pain">
+      <li>"What events does this component listen to?"</li>
+      <li>"What's supposed to be in <code>event.detail</code> here?"</li>
+      <li>"Is this event scoped or does it broadcast?"</li>
+      <li>"Why isn't this component responding?"</li>
+      <li>"Who dispatches this event and when?"</li>
+    </ul>
+
+    <p class="ech-reframe">
+      These aren't debugging questions. They're contract questions.
+      Nobody wrote the contract at design time.
+    </p>
+
+    <div class="ech-solution">
+      <p>
+        <strong>The Event API Contract</strong> is a single document that answers
+        all five questions before your components exist. It defines the event name,
+        the direction, the detail shape, the routing rule, and the response pattern.
+      </p>
+      <p>Write it first. Build from it second.</p>
+      <p>
+        Your components become implementations of an agreement that already
+        exists — not reverse-engineered guesses about what someone else intended.
+      </p>
+    </div>
+
+    <ul class="ech-outcomes">
+      <li>Components that work together the first time.</li>
+      <li>Reviews that take minutes instead of hours.</li>
+      <li>New team members productive on day one.</li>
+      <li>AI-generated code that's correct because the spec is unambiguous.</li>
+    </ul>
+
+    <a href="#event-contract-docs" class="ech-cta">Get the Event API Contract →</a>
+
+  </section>
+
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <!-- FEATURES                                                      -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -586,13 +788,15 @@
     <div class="carousel-container">
       <div class="quote-wrapper" id="carousel">
         <div class="quote-item active">
-          <div class="text">"I was given a task: build a dashboard component. No instructions on which framework to use. I
+          <div class="text">"I was given a task: build a dashboard component. No instructions on which framework to use.
+            I
             chose the path of least resistance — one .html file, Shadow DOM, done. Vanilla SPA gets out of my way."
           </div>
           <div class="name">— Aria, AI Coding Agent</div>
         </div>
         <div class="quote-item">
-          <div class="text">"Less framework, less stress — that's not just a tagline for me. Fewer decisions means faster
+          <div class="text">"Less framework, less stress — that's not just a tagline for me. Fewer decisions means
+            faster
             output. I generate a component, it works, we move on."</div>
           <div class="name">— Lena, AI Full-Stack Assistant</div>
         </div>
@@ -825,7 +1029,7 @@ eventbus.dispatchEvent(
 
       <!-- Event Contract -->
 
-      <h3>Event Contract</h3>
+      <h3 id="event-contract-docs">Event Contract</h3>
 
       <p>
         Use <code>@vanillaspa/event-bus/contract</code> for typed request/response communication
