@@ -3,14 +3,12 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="./assets/javascript.svg" />
-  <link rel="stylesheet" href="./assets/style/default.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vanilla SPA — Sustainable Web Development</title>
 
   <style>
     /* ══════════════════════════════════════════════════════════════ */
-    /* Reset & Base */
+    /* Reset & Base                                                  */
     /* ══════════════════════════════════════════════════════════════ */
 
     *,
@@ -22,7 +20,6 @@
     }
 
     :root {
-      /* Soft, calming palette */
       --bg: #fafbfc;
       --surface: #ffffff;
       --border: #e1e4e8;
@@ -52,30 +49,30 @@
     }
 
     /* ══════════════════════════════════════════════════════════════ */
-    /* Hero Section */
+    /* Hero Section                                                  */
     /* ══════════════════════════════════════════════════════════════ */
 
     .hero {
       text-align: center;
-      padding: 5rem 2rem 4rem;
+      padding: 3rem 1rem 2.5rem;
       background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
       border-bottom: 1px solid var(--border);
     }
 
     .hero-badge {
       display: inline-block;
-      font-size: .8rem;
+      font-size: .75rem;
       font-weight: 500;
       color: var(--accent-dark);
       background: var(--accent-soft);
-      padding: .4rem 1rem;
+      padding: .35rem .9rem;
       border-radius: 20px;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
       letter-spacing: .02em;
     }
 
     .hero h1 {
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      font-size: clamp(1.8rem, 6vw, 4.5rem);
       font-weight: 300;
       letter-spacing: -.02em;
       margin-bottom: .5rem;
@@ -90,16 +87,16 @@
     }
 
     .hero .tagline {
-      font-size: 1.3rem;
+      font-size: clamp(1rem, 3vw, 1.3rem);
       color: var(--text-muted);
       max-width: 600px;
-      margin: 0 auto 2.5rem;
+      margin: 0 auto 2rem;
       font-weight: 400;
     }
 
     .hero-cta {
       display: flex;
-      gap: 1rem;
+      gap: .75rem;
       justify-content: center;
       flex-wrap: wrap;
     }
@@ -108,24 +105,24 @@
       display: inline-flex;
       align-items: center;
       gap: .5rem;
-      padding: .9rem 1.8rem;
+      padding: .8rem 1.5rem;
       border-radius: var(--radius);
       font-weight: 500;
       text-decoration: none;
       transition: all .2s;
-      font-size: 1rem;
+      font-size: .95rem;
     }
 
     .btn-primary {
       background: var(--accent);
       color: white;
-      box-shadow: 0 4px 12px rgba(52, 211, 153, 0.3);
+      box-shadow: 0 4px 12px rgba(255, 105, 180, 0.3);
     }
 
     .btn-primary:hover {
       background: var(--accent-dark);
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(52, 211, 153, 0.4);
+      box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
     }
 
     .btn-secondary {
@@ -142,25 +139,25 @@
     }
 
     /* ══════════════════════════════════════════════════════════════ */
-    /* Features Section */
+    /* Features Section                                              */
     /* ══════════════════════════════════════════════════════════════ */
 
     .features {
-      padding: 5rem 2rem;
+      padding: 3rem 1rem;
       max-width: 1200px;
       margin: 0 auto;
     }
 
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      margin-top: 2rem;
     }
 
     .feature-card {
       background: var(--surface);
-      padding: 2rem;
+      padding: 1.5rem;
       border-radius: var(--radius);
       border: 1px solid var(--border);
       transition: all .3s;
@@ -173,32 +170,82 @@
     }
 
     .feature-icon {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+      font-size: 2rem;
+      margin-bottom: .75rem;
       display: block;
     }
 
     .feature-card h3 {
-      font-size: 1.3rem;
+      font-size: 1.15rem;
       font-weight: 600;
-      margin-bottom: .7rem;
+      margin-bottom: .5rem;
       color: var(--text);
     }
 
     .feature-card p {
       color: var(--text-muted);
-      font-size: .95rem;
+      font-size: .9rem;
       line-height: 1.6;
     }
 
     /* ══════════════════════════════════════════════════════════════ */
-    /* Guide Section */
+    /* Carousel                                                      */
+    /* ══════════════════════════════════════════════════════════════ */
+
+    .carousel {
+      padding: 3rem 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .carousel-container {
+      background: white;
+      padding: 2rem 1.5rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      position: relative;
+      min-height: 130px;
+    }
+
+    .quote-item {
+      display: none;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    .quote-item.active {
+      display: block;
+    }
+
+    .text {
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      font-weight: 500;
+      color: #1a1a1a;
+      line-height: 1.4;
+      margin-bottom: 1rem;
+    }
+
+    .name {
+      font-size: .95rem;
+      color: #0070ba;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ══════════════════════════════════════════════════════════════ */
+    /* Guide Section                                                 */
     /* ══════════════════════════════════════════════════════════════ */
 
     .guide {
       background: var(--surface);
       border-top: 1px solid var(--border);
-      padding: 5rem 2rem;
+      padding: 3rem 1rem;
     }
 
     .guide-inner {
@@ -207,7 +254,7 @@
     }
 
     .guide h2 {
-      font-size: 2rem;
+      font-size: clamp(1.5rem, 4vw, 2rem);
       font-weight: 600;
       margin-bottom: 1rem;
       padding-bottom: .7rem;
@@ -216,16 +263,16 @@
     }
 
     .guide h3 {
-      font-size: 1.4rem;
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
       font-weight: 600;
-      margin: 2.5rem 0 1rem;
+      margin: 2rem 0 .8rem;
       color: var(--text);
     }
 
     .guide p {
       color: var(--text-muted);
-      margin-bottom: 1.2rem;
-      font-size: 1.05rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
     }
 
     .guide strong {
@@ -235,10 +282,10 @@
 
     .guide code {
       font-family: var(--font-mono);
-      font-size: .9em;
+      font-size: .85em;
       color: var(--accent-dark);
       background: var(--accent-soft);
-      padding: .2rem .5rem;
+      padding: .15rem .4rem;
       border-radius: 4px;
     }
 
@@ -246,32 +293,33 @@
       background: #f6f8fa;
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.5rem;
+      padding: 1.2rem;
       overflow-x: auto;
-      margin: 1.5rem 0;
+      margin: 1.2rem 0;
       box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+      -webkit-overflow-scrolling: touch;
     }
 
     .guide pre code {
       background: none;
       padding: 0;
       color: var(--text);
-      font-size: .9rem;
+      font-size: .85rem;
       line-height: 1.7;
     }
 
     /* Step numbers */
     .step {
       display: flex;
-      gap: 1.5rem;
-      margin: 2rem 0;
+      gap: 1rem;
+      margin: 1.5rem 0;
       align-items: flex-start;
     }
 
     .step-number {
       flex-shrink: 0;
-      width: 3rem;
-      height: 3rem;
+      width: 2.5rem;
+      height: 2.5rem;
       background: var(--accent);
       color: white;
       border-radius: 50%;
@@ -279,12 +327,13 @@
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 1.3rem;
-      box-shadow: 0 4px 12px rgba(52, 211, 153, 0.3);
+      font-size: 1.1rem;
+      box-shadow: 0 4px 12px rgba(255, 105, 180, 0.3);
     }
 
     .step-content {
       flex: 1;
+      min-width: 0;
     }
 
     .step-content h3 {
@@ -295,9 +344,9 @@
     .callout {
       background: var(--accent-soft);
       border-left: 4px solid var(--accent);
-      padding: 1.2rem 1.5rem;
+      padding: 1rem 1.2rem;
       border-radius: 6px;
-      margin: 1.5rem 0;
+      margin: 1.2rem 0;
     }
 
     .callout.info {
@@ -319,13 +368,13 @@
       background: #f9fafb;
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.5rem;
-      margin: 1.5rem 0;
+      padding: 1.2rem;
+      margin: 1.2rem 0;
     }
 
     .practice h3 {
       margin-top: 0;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
     }
 
     .practice p {
@@ -333,28 +382,29 @@
     }
 
     /* ══════════════════════════════════════════════════════════════ */
-    /* Footer */
+    /* Footer                                                        */
     /* ══════════════════════════════════════════════════════════════ */
 
     .footer {
       background: #f9fafb;
       border-top: 1px solid var(--border);
-      padding: 3rem 2rem;
+      padding: 2rem 1rem;
       text-align: center;
     }
 
     .footer-links {
       display: flex;
-      gap: 2rem;
+      gap: 1rem;
       justify-content: center;
       flex-wrap: wrap;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
     }
 
     .footer-links a {
       color: var(--text-muted);
       text-decoration: none;
       font-weight: 500;
+      font-size: .9rem;
       transition: color .2s;
     }
 
@@ -364,83 +414,16 @@
 
     .footer p {
       color: var(--text-muted);
-      font-size: .9rem;
-    }
-
-    /* Carousel */
-    .carousel {
-      padding: 5rem 2rem;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .carousel-container {
-      background: white;
-      padding: 3rem;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 600px;
-      text-align: center;
-      position: relative;
-      min-height: 150px;
-    }
-
-    .quote-wrapper {
-      position: relative;
-    }
-
-    .quote-item {
-      display: none;
-      animation: fadeIn 0.8s ease-in-out;
-    }
-
-    .quote-item.active {
-      display: block;
-    }
-
-    .text {
-      font-size: 1.5rem;
-      font-weight: 500;
-      color: #1a1a1a;
-      line-height: 1.4;
-      margin-bottom: 1rem;
-    }
-
-    .name {
-      font-size: 1.1rem;
-      color: #0070ba;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      font-size: .85rem;
     }
 
     /* ══════════════════════════════════════════════════════════════ */
-    /* Scroll animations */
+    /* Scroll animations                                             */
     /* ══════════════════════════════════════════════════════════════ */
 
     @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: none;
-      }
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: none; }
     }
 
     .feature-card,
@@ -448,20 +431,85 @@
       animation: fadeUp .6s ease backwards;
     }
 
-    .feature-card:nth-child(1) {
-      animation-delay: .1s;
+    .feature-card:nth-child(1) { animation-delay: .1s; }
+    .feature-card:nth-child(2) { animation-delay: .2s; }
+    .feature-card:nth-child(3) { animation-delay: .3s; }
+    .feature-card:nth-child(4) { animation-delay: .4s; }
+
+    /* ══════════════════════════════════════════════════════════════ */
+    /* Responsive breakpoints                                        */
+    /* ══════════════════════════════════════════════════════════════ */
+
+    @media (min-width: 600px) {
+      .hero {
+        padding: 4rem 2rem 3rem;
+      }
+
+      .features {
+        padding: 4rem 2rem;
+      }
+
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+
+      .carousel-container {
+        padding: 2.5rem;
+      }
+
+      .guide {
+        padding: 4rem 2rem;
+      }
+
+      .step-number {
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.3rem;
+      }
+
+      .footer {
+        padding: 2.5rem 2rem;
+      }
+
+      .footer-links {
+        gap: 2rem;
+      }
     }
 
-    .feature-card:nth-child(2) {
-      animation-delay: .2s;
-    }
+    @media (min-width: 960px) {
+      .hero {
+        padding: 5rem 2rem 4rem;
+      }
 
-    .feature-card:nth-child(3) {
-      animation-delay: .3s;
-    }
+      .features {
+        padding: 5rem 2rem;
+      }
 
-    .feature-card:nth-child(4) {
-      animation-delay: .4s;
+      .features-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+      }
+
+      .feature-card {
+        padding: 2rem;
+      }
+
+      .carousel {
+        padding: 5rem 2rem;
+      }
+
+      .carousel-container {
+        padding: 3rem;
+      }
+
+      .guide {
+        padding: 5rem 2rem;
+      }
+
+      .footer {
+        padding: 3rem 2rem;
+      }
     }
   </style>
 </head>
@@ -469,19 +517,17 @@
 <body>
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- HERO -->
+  <!-- HERO                                                          -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
 
   <section class="hero">
-    <div class="hero-badge">✨ Less framework, less f*cks.</div>
+    <div class="hero-badge">Less framework, less f*cks.</div>
     <h1>Build Single Page Applications with <strong>Vanilla SPA</strong></h1>
     <p class="tagline">
       Vanilla Web Components made easy. Just basic Web-Technology. AI-ready.
     </p>
     <div class="hero-cta">
-      <a href="#quick-start" class="btn btn-primary">
-        Get Started →
-      </a>
+      <a href="#quick-start" class="btn btn-primary">Get Started</a>
       <a href="https://github.com/vanillaspa/boilerplate" class="btn btn-secondary" target="_blank">
         View on GitHub
       </a>
@@ -489,7 +535,7 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- FEATURES -->
+  <!-- FEATURES                                                      -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
 
   <section class="features">
@@ -507,7 +553,7 @@
         <span class="feature-icon">🔒</span>
         <h3>Shadow DOM Isolation</h3>
         <p>
-          (S)CSS scoping built-in. No naming conflicts, no style leaks.
+          CSS scoping built-in. No naming conflicts, no style leaks.
           Your components stay independent.
         </p>
       </div>
@@ -516,7 +562,7 @@
         <span class="feature-icon">⚡</span>
         <h3>Sustainable Development</h3>
         <p>
-          Your components will still work in 10 years. They are build on basic web-technology.
+          Your components will still work in 10 years. Built on basic web-technology.
         </p>
       </div>
 
@@ -524,34 +570,35 @@
         <span class="feature-icon">🗄️</span>
         <h3>OPFS SQLite</h3>
         <p>
-          Full SQLite database in the Origin Private File System (OPFS) of your browser.
-          Web Worker pooling. No server needed.
+          Full SQLite database in the browser's OPFS.
+          Web Worker per database. No server needed.
         </p>
       </div>
 
     </div>
   </section>
 
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- CAROUSEL                                                      -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+
   <section class="carousel">
     <div class="carousel-container">
       <div class="quote-wrapper" id="carousel">
         <div class="quote-item active">
-          <div class="text">"I was given a task: build a dashboard component. No instructions on which framework to use.
-            I
+          <div class="text">"I was given a task: build a dashboard component. No instructions on which framework to use. I
             chose the path of least resistance — one .html file, Shadow DOM, done. Vanilla SPA gets out of my way."
           </div>
           <div class="name">— Aria, AI Coding Agent</div>
         </div>
         <div class="quote-item">
-          <div class="text">"Less framework, less stress — that's not just a tagline for me. Fewer decisions means
-            faster
+          <div class="text">"Less framework, less stress — that's not just a tagline for me. Fewer decisions means faster
             output. I generate a component, it works, we move on."</div>
           <div class="name">— Lena, AI Full-Stack Assistant</div>
         </div>
         <div class="quote-item">
           <div class="text">"What I appreciate most: I can read the entire component in one glance. Template, style,
-            logic
-            — all in one place. No mental context-switching between five files."</div>
+            logic — all in one place. No mental context-switching between five files."</div>
           <div class="name">— Max, AI Developer Assistant</div>
         </div>
         <div class="quote-item">
@@ -561,15 +608,15 @@
         </div>
         <div class="quote-item">
           <div class="text">"Tree-shaking? Bundle analysis? I just... don't need to think about it. I build what's
-            needed.
-            Nothing ships that wasn't written."</div>
+            needed. Nothing ships that wasn't written."</div>
           <div class="name">— Finn, AI Pair Programmer</div>
         </div>
       </div>
     </div>
   </section>
+
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- GUIDE -->
+  <!-- GUIDE                                                         -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
 
   <section class="guide" id="quick-start">
@@ -582,24 +629,22 @@
         No magic, no virtual DOM — just the platform.
       </p>
 
-      <!-- ──────────────────────────────────────────────────────────── -->
       <!-- Installation -->
-      <!-- ──────────────────────────────────────────────────────────── -->
 
       <h3>Installation</h3>
 
-      <p>Grab the boilerplate code
+      <p>Grab the boilerplate code</p>
       <pre><code>git clone https://github.com/vanillaspa/boilerplate.git</code></pre>
-      or
-      </p>
+
+      <p>or set up manually:</p>
+
       <div class="step">
         <span class="step-number">1</span>
         <div class="step-content">
-          <h3>Create your own project manually</h3>
-          <pre>
-<code>npm init -y</code>
-<code>npm install @vanillaspa/web-components @vanillaspa/event-bus @vanillaspa/sqlite-database</code>
-<code>npm install vite --save-dev</code></pre>
+          <h3>Create your project</h3>
+          <pre><code>npm init -y
+npm install @vanillaspa/web-components @vanillaspa/event-bus @vanillaspa/sqlite-database
+npm install vite --save-dev</code></pre>
         </div>
       </div>
 
@@ -612,12 +657,12 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
+    "preview": "vite preview"
   }
 }</code></pre>
           <p>
-            For use of SQLite WASM, you MUST
-            <code><a href="https://github.com/vanillaspa/boilerplate/blob/main/vite.config.js">config Vite</a></code>!
+            For SQLite WASM, you MUST
+            <code><a href="https://github.com/vanillaspa/boilerplate/blob/main/vite.config.js">configure Vite</a></code>!
           </p>
         </div>
       </div>
@@ -635,8 +680,7 @@
     │        └── app-start.html
     └── main.js</code></pre>
           <p><strong>@vanillaspa/web-components</strong> scans <code>/src/components</code>. All found components are
-            added
-            automagically to your customElements registry.</p>
+            added automagically to your customElements registry.</p>
         </div>
       </div>
 
@@ -648,18 +692,16 @@
         </div>
       </div>
 
-      <!-- ──────────────────────────────────────────────────────────── -->
       <!-- First Component -->
-      <!-- ──────────────────────────────────────────────────────────── -->
 
       <h3>Your First Component</h3>
 
       <div class="callout">
         <strong>Filename Convention:</strong><br />
-        <code>/src/components/{prefix}/{prefix}-{suffix}.html</code> → <code>&lt;prefix-suffix&gt;</code>
-        <br />
-        Example: <br />
-        <code>/src/components/app/app-start.html</code> → <code>&lt;app-start&gt;</code>
+        <code>/src/components/{prefix}/{prefix}-{name}.html</code><br />
+        Supports 2-fold through 4-fold names:<br />
+        <code>app-start.html</code> &rarr; <code>&lt;app-start&gt;</code><br />
+        <code>app-start-page-home.html</code> &rarr; <code>&lt;app-start-page-home&gt;</code>
       </div>
 
       <p><strong>File:</strong> <code>/src/components/app/app-start.html</code></p>
@@ -675,15 +717,15 @@
 
 &lt;style&gt;
   :host { display: block; }
-  
+
   header {
     padding: 1rem 2rem;
     background: #f9fafb;
     border-bottom: 1px solid #e5e7eb;
   }
-  
-  h1 { 
-    color: #34d399; 
+
+  h1 {
+    color: #ff69b4;
     font-size: 1.5rem;
   }
 &lt;/style&gt;
@@ -695,18 +737,22 @@
 &lt;/script&gt;</code></pre>
 
       <div class="callout info">
+        <strong>How it works:</strong> The <code>&lt;script&gt;</code> body is compiled into an
+        <code>AsyncFunction</code> with <code>shadowDocument</code> (your shadow root) passed as a parameter.
+        Top-level <code>await</code> and dynamic <code>import()</code> work out of the box.
+      </div>
+
+      <div class="callout info">
         <strong>Important:</strong> <code>&lt;template&gt;</code>, <code>&lt;style&gt;</code>, and
         <code>&lt;script&gt;</code> must be siblings at the top level — not nested.
       </div>
 
-      <!-- ──────────────────────────────────────────────────────────── -->
       <!-- shadowDocument -->
-      <!-- ──────────────────────────────────────────────────────────── -->
 
       <h3>Web-Components</h3>
 
       <p>
-        Vanilla SPA automagically injects <code>shadowDocument</code> into every script tag.
+        Vanilla SPA passes <code>shadowDocument</code> directly into every component script.
         It's your component's Shadow Root — no setup needed.
       </p>
 
@@ -725,26 +771,111 @@
 &lt;/script&gt;</code></pre>
 
       <div class="callout warning">
-        <strong>Note:</strong> Scripts run as ES modules. Therefore no JS will work in the templates, unless you're
-        using the <code><a href="#data-action-pattern">data-action</a></code> pattern.
+        <strong>Note:</strong> Scripts run as async functions, not ES modules. Use dynamic
+        <code>import()</code> instead of static <code>import</code> statements.
+        Use the <code><a href="#data-action-pattern">data-action</a></code> pattern
+        for functions in templates.
       </div>
 
-      <!-- ──────────────────────────────────────────────────────────── -->
-      <!-- SQLite (Optional) -->
-      <!-- ──────────────────────────────────────────────────────────── -->
+      <!-- Event Bus -->
+
+      <h3>Event Bus</h3>
+
+      <p>
+        Use <code>@vanillaspa/event-bus</code> for context-scoped events.
+        Listeners are automatically cleaned up when components disconnect.
+      </p>
+
+      <p><strong>Setup in</strong> <code>src/main.js</code>:</p>
+
+      <pre><code>import('@vanillaspa/web-components');
+
+customElements.whenDefined("app-start").then(() => {
+    Promise.all([
+        import('@vanillaspa/event-bus'),
+        import('@vanillaspa/sqlite-database')
+    ]).then((importedModules) => {
+        importedModules.forEach((module) => {
+            window[module.name] = Object.freeze({ ...module });
+        });
+    }).finally(() => {
+        document.body.replaceChildren();
+        document.body.appendChild(document.createElement('app-start'));
+    });
+})</code></pre>
+
+      <p><strong>In your component:</strong></p>
+
+      <pre><code>&lt;script&gt;
+const host = shadowDocument.host;
+
+// Listen for events
+eventbus.addEventListener('user:action', (e) => {
+    console.log('Action:', e.detail.action);
+}, host);
+
+// Fire an event
+eventbus.dispatchEvent(
+    new CustomEvent('user:action', {
+        detail: { action: 'clicked' }
+    }),
+    host  // Context: only this instance's listeners
+);
+&lt;/script&gt;</code></pre>
+
+      <!-- Event Contract -->
+
+      <h3>Event Contract</h3>
+
+      <p>
+        Use <code>@vanillaspa/event-bus/contract</code> for typed request/response communication
+        between components via the 4-fold event naming convention.
+      </p>
+
+      <p><strong>Define a contract:</strong> <code>src/contracts/sqlite-contract.js</code></p>
+
+      <pre><code>import { defineContract } from '@vanillaspa/event-bus/contract';
+
+export const SqliteContract = defineContract(window.eventbus, {
+    namespace: 'sqlite',
+    events: {
+        query:     { detail: { sql: 'string', name: 'string' },  past: 'queried'  },
+        statement: { detail: { sql: 'string', values: 'array',
+                               name: 'string' },                 past: 'executed' },
+    }
+});</code></pre>
+
+      <p><strong>Bridge side</strong> (handles requests):</p>
+
+      <pre><code>&lt;script&gt;
+const bridge = SqliteContract.createBridge(shadowDocument.host);
+
+bridge.handle('statement', async ({ sql, values, name }) => {
+    return await sqlite.executeStatement(sql, values, name);
+});
+&lt;/script&gt;</code></pre>
+
+      <p><strong>Consumer side</strong> (sends requests):</p>
+
+      <pre><code>&lt;script&gt;
+const consumer = SqliteContract.createConsumer(shadowDocument.host);
+
+const rows = await consumer.request('query', {
+    sql: 'SELECT * FROM notes', name: 'mydb'
+});
+console.log(rows);
+&lt;/script&gt;</code></pre>
+
+      <!-- SQLite -->
 
       <h3>Database</h3>
 
       <p>
         Add <code>@vanillaspa/sqlite-database</code> for a full SQLite database in the browser.
-        Persisted in OPFS, runs in Web Worker.
+        Persisted in OPFS, runs in a dedicated Web Worker per database.
       </p>
 
-      <pre><code>npm install @vanillaspa/sqlite-database</code></pre>
-
       <pre><code>&lt;script&gt;
-import * as sqlite from '@vanillaspa/sqlite-database';
-
 // Create database
 await sqlite.createDB('my-app');
 
@@ -757,12 +888,12 @@ await sqlite.executeQuery(`
   )
 `, 'my-app');
 
-// Insert data (SQL injection safe)
-await sqlite.executeStatement({
-  sql: 'INSERT INTO users (name, email) VALUES (?, ?)',
-  values: ['Anna', 'anna@example.com'],
-  name: 'my-app'
-});
+// Insert data (parameterised — SQL injection safe)
+await sqlite.executeStatement(
+  'INSERT INTO users (name, email) VALUES (?, ?)',
+  ['Anna', 'anna@example.com'],
+  'my-app'
+);
 
 // Query
 const users = await sqlite.executeQuery(
@@ -771,52 +902,12 @@ const users = await sqlite.executeQuery(
 );
 &lt;/script&gt;</code></pre>
 
-      <!-- ──────────────────────────────────────────────────────────── -->
-      <!-- Component Communication -->
-      <!-- ──────────────────────────────────────────────────────────── -->
-
-      <h3>Eventbus</h3>
-
-      <p>
-        Use <code>@vanillaspa/event-bus</code> for context-based events.
-        Events are automatically cleaned up when components are removed.
-      </p>
-
-      <p><strong>Setup in</strong> <code>src/main.js</code>:</p>
-
-      <pre><code>import '@vanillaspa/web-components';
-import * as bus from '@vanillaspa/event-bus';
-window.bus = bus;</code></pre>
-
-      <p><strong>In your component:</strong></p>
-
-      <pre><code>&lt;script&gt;
-const host = shadowDocument.host;
-
-// Fire an event
-function notify() {
-  bus.dispatchEvent(
-    new CustomEvent('user-action', { 
-      detail: { action: 'clicked' } 
-    }),
-    host  // Context: only this instance's listeners
-  );
-}
-
-// Listen for events
-bus.addEventListener('user-action', (e) => {
-  console.log('Action:', e.detail.action);
-}, host);
-&lt;/script&gt;</code></pre>
-
-      <!-- ──────────────────────────────────────────────────────────── -->
       <!-- Functions in Templates -->
-      <!-- ──────────────────────────────────────────────────────────── -->
 
-      <h3 id="data-action-pattern">Using Functions in Templates (beta)</h3>
+      <h3 id="data-action-pattern">Using Functions in Templates</h3>
 
       <p>
-        Since scripts of custom elements are modules, functions aren't global.
+        Since component scripts run as async functions, declared functions aren't global.
         The solution: <strong>data-action pattern</strong> + <strong>bindActions()</strong>
       </p>
 
@@ -826,8 +917,8 @@ bus.addEventListener('user-action', (e) => {
   shadowDocument.querySelectorAll('[data-action]').forEach(el => {
     const fn = actions[el.dataset.action];
     if (fn) {
-      bus.addEventListener('click', fn, el);
-      el.addEventListener('click', e => bus.dispatchEvent(e, el));
+      eventbus.addEventListener('click', fn, el);
+      el.addEventListener('click', e => eventbus.dispatchEvent(e, el));
     }
   });
 }</code></pre>
@@ -837,47 +928,51 @@ bus.addEventListener('user-action', (e) => {
       <pre><code>&lt;template&gt;
   &lt;button data-action="greet"&gt;Say Hello&lt;/button&gt;
   &lt;button data-action="celebrate"&gt;Celebrate&lt;/button&gt;
-  &lt;output id="out"&gt;–&lt;/output&gt;
+  &lt;output id="out"&gt;&lt;/output&gt;
 &lt;/template&gt;
 
 &lt;script&gt;
-  import { bindActions } from '/src/bindActions.js';
+  const { bindActions } = await import('/src/bindActions.js');
 
   const out = shadowDocument.getElementById('out');
 
-  function greet() { out.value = 'Hello! 👋'; }
-  function celebrate() { out.value = 'Party! 🎉'; }
+  function greet() { out.value = 'Hello!'; }
+  function celebrate() { out.value = 'Party!'; }
 
-  // One line — done
   bindActions(shadowDocument, { greet, celebrate });
 &lt;/script&gt;</code></pre>
-      <!-- ──────────────────────────────────────────────────────────── -->
+
       <!-- Best Practices -->
-      <!-- ──────────────────────────────────────────────────────────── -->
 
       <h3>Best Practices</h3>
 
       <div class="practice">
-        <h3>✅ Follow the filename convention</h3>
-        <pre><code>/src/components/{prefix}/{prefix}-{suffix}.html</code></pre>
-        <p>Example: <code>page/page-home.html</code> → <code>&lt;page-home&gt;</code></p>
+        <h3>Follow the filename convention</h3>
+        <pre><code>/src/components/{prefix}/{prefix}-{name}.html</code></pre>
+        <p>Example: <code>page/page-home.html</code> &rarr; <code>&lt;page-home&gt;</code></p>
       </div>
 
       <div class="practice">
-        <h3>✅ Use event-bus with context</h3>
-        <pre><code>bus.addEventListener('my-event', handler, host);</code></pre>
-        <p>Automatic cleanup when component is removed</p>
+        <h3>Use event-bus with context</h3>
+        <pre><code>eventbus.addEventListener('my-event', handler, host);</code></pre>
+        <p>Automatic cleanup when component disconnects</p>
       </div>
 
       <div class="practice">
-        <h3>❌ Don't nest script inside template</h3>
-        <pre><code>&lt;!-- ❌ Wrong --&gt;
+        <h3>Use dynamic import()</h3>
+        <pre><code>// Static import won't work inside component scripts
+const { helper } = await import('./my-helper.js');</code></pre>
+      </div>
+
+      <div class="practice">
+        <h3>Don't nest script inside template</h3>
+        <pre><code>&lt;!-- Wrong --&gt;
 &lt;template&gt;
   &lt;div&gt;...&lt;/div&gt;
   &lt;script&gt;...&lt;/script&gt;
 &lt;/template&gt;
 
-&lt;!-- ✅ Correct --&gt;
+&lt;!-- Correct --&gt;
 &lt;template&gt;
   &lt;div&gt;...&lt;/div&gt;
 &lt;/template&gt;
@@ -885,23 +980,19 @@ bus.addEventListener('user-action', (e) => {
       </div>
 
       <div class="practice">
-        <h3>❌ Don't use onclick in templates</h3>
-        <pre><code>&lt;!-- ❌ Won't work --&gt;
+        <h3>Don't use onclick in templates</h3>
+        <pre><code>&lt;!-- Won't work --&gt;
 &lt;button onclick="fn()"&gt;Click&lt;/button&gt;
 
-&lt;!-- ✅ Use data-action --&gt;
+&lt;!-- Use data-action --&gt;
 &lt;button data-action="fn"&gt;Click&lt;/button&gt;</code></pre>
       </div>
 
-      <!-- ──────────────────────────────────────────────────────────── -->
       <!-- Why Vanilla SPA? -->
-      <!-- ──────────────────────────────────────────────────────────── -->
 
       <h3>Why Vanilla SPA?</h3>
 
-      <p>
-        <strong>Perfect for:</strong>
-      </p>
+      <p><strong>Perfect for:</strong></p>
 
       <ul style="color: var(--text-muted); margin-left: 1.5rem; line-height: 1.8;">
         <li>AI-friendly SPA generation</li>
@@ -922,7 +1013,7 @@ bus.addEventListener('user-action', (e) => {
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- FOOTER -->
+  <!-- FOOTER                                                        -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
 
   <footer class="footer">
@@ -934,7 +1025,7 @@ bus.addEventListener('user-action', (e) => {
       <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components" target="_blank">Web Components Docs</a>
     </div>
     <p>Vanilla SPA — Easy web development with Single File Components in .html files</p>
-    <p style="margin-top: .5rem; font-size: .85rem;">Unlicense — Public Domain</p>
+    <p style="margin-top: .5rem; font-size: .8rem;">Unlicense — Public Domain</p>
   </footer>
 
   <script>
@@ -947,7 +1038,6 @@ bus.addEventListener('user-action', (e) => {
       quotes[index].classList.add('active');
     }
 
-    // Change quote every 4 seconds
     setInterval(rotateQuotes, 10000);
   </script>
 </body>
