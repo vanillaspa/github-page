@@ -1,769 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vanilla SPA — Sustainable Web Development</title>
-  <meta name="description" content="Vanilla Web Components made easy. Just basic Web-Technology. AI-ready." />
-  <link rel="preconnect" href="https://rsms.me/">
-  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VanillaSpa | Emerald ESM Architecture</title>
+    <style>
+        :root {
+            /* Emerald & Gold Palette */
+            --emerald-deep: #144000;
+            --emerald-bright: #043927;
+            --gold-leaf: #d4af37; /* Warmer, brushed gold */
+            --gold-glow: rgba(212, 175, 55, 0.5);
+            --godly-gold: #ffd700; 
+            --godly-shine: #fffbe0;
+            --glass-white: rgba(255, 255, 255, 0.05);
+            --text-light: #f1f5f1;
+            --vite-accent: #ff007a; /* Neon pink/purple for a tech-contrast against emerald */
+        }
 
-    :root {
-      --bg:       #fafbfc;
-      --bg2:      #ffffff;
-      --bg3:      #f6f8fa;
-      --border:   #e1e4e8;
-      --border2:  #d0d7de;
-      --text:     #1f2937;
-      --muted:    #6b7280;
-      --pink:     #ff69b4;
-      --pink-dim: #ff1493;
-      --green:    #1a7f37;
-      --radius:   6px;
-    }
+        body {
+            margin: 0; padding: 0; min-height: 100vh;
+            font-family: 'SF Pro Display', system-ui, -apple-system, sans-serif;
+            background-color: var(--emerald-deep);
+            color: var(--text-light);
+            /* Rich Emerald Gradient */
+            background-image: radial-gradient(circle at 50% -20%, var(--emerald-bright) 0%, var(--emerald-deep) 80%);
+            display: flex; flex-direction: column; align-items: center;
+        }
 
-    ::selection { background: #ffc0cb; color: #ff1493; }
-    html { scroll-behavior: smooth; }
+        .container { max-width: 1100px; width: 100%; padding: 0 2rem; }
 
-    body {
-      background: #fafbfc;
-      color: #1f2937;
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      font-size: 15px;
-      line-height: 1.75;
-      -webkit-font-smoothing: antialiased;
-    }
+        header { text-align: center; padding: 10rem 0 5rem; }
+        
+        h1 {
+            font-size: 5.5rem; margin: 0; text-transform: uppercase; letter-spacing: 0.8rem;
+            font-weight: 900;
+            color: var(--gold-leaf);
+            background: linear-gradient(135deg, var(--godly-gold) 0%, var(--godly-shine) 50%, var(--godly-gold) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px var(--gold-glow));
+        }
 
-    a { color: #ff69b4; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    strong { color: #111827; font-weight: 600; }
+        .vow-line {
+            margin-top: 2rem; font-size: 1rem; letter-spacing: 5px;
+            text-transform: uppercase; color: var(--gold-leaf); opacity: 0.8;
+        }
 
-    code {
-      font-family: ui-monospace, 'Fira Code', monospace;
-      font-size: .88em;
-      background: #f6f8fa;
-      border: 1px solid #d0d7de;
-      border-radius: 3px;
-      padding: .1em .38em;
-      color: #1f2937;
-    }
+        /* --- THE MODULES --- */
+        .grid {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 4rem;
+            width: 100%; margin: 4rem auto;
+        }
 
-    .wrap { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 1.25rem; }
+        article {
+            position: relative;
+            background: var(--glass-white);
+            /* The "Silver-Green Vessel" shine refined for Emerald */
+            background-image: conic-gradient(from 180deg at 50% 120%, rgba(255,255,255,0) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0) 100%);
+            border-radius: 15px; padding: 3.5rem 2.5rem;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            backdrop-filter: blur(20px);
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
 
-    /* nav */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(250,251,252,.95);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid #e1e4e8;
-    }
-    .nav-inner {
-      max-width: 760px; margin: 0 auto; padding: 0 1.25rem;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 50px;
-    }
-    .nav-logo { color: #ff69b4; font-weight: 700; font-size: 13px; letter-spacing: .04em; text-decoration: none; }
-    .nav-links { display: none; gap: 1.5rem; }
-    .nav-links a { color: #6b7280; font-size: 12px; text-decoration: none; transition: color .15s; }
-    .nav-links a:hover { color: #1f2937; }
-    .nav-gh {
-      font-size: 12px; color: #6b7280; text-decoration: none;
-      border: 1px solid #d0d7de; border-radius: 6px;
-      padding: .3rem .75rem; transition: color .15s, border-color .15s;
-    }
-    .nav-gh:hover { color: #1f2937; border-color: #1f2937; }
+        article:hover {
+            transform: translateY(-15px);
+            border-color: var(--gold-leaf);
+            box-shadow: 0 0 40px var(--gold-glow), 0 30px 60px rgba(0,0,0,0.5);
+        }
 
-    /* hero */
-    .hero { padding: 4rem 1.25rem 3.5rem; max-width: 760px; margin: 0 auto; }
-    .hero-kicker { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #6b7280; margin-bottom: 1.25rem; }
-    .hero h1 {
-      font-family: 'Inter', system-ui, sans-serif;
-      font-weight: 700; font-size: clamp(2rem, 7vw, 3.5rem);
-      line-height: 1.1; color: #111827; margin-bottom: 1.1rem;
-    }
-    .hero h1 em { color: #ff69b4; font-style: normal; font-weight: 300; }
-    .hero-sub { font-size: 14px; color: #6b7280; max-width: 480px; line-height: 1.8; margin-bottom: 2.25rem; }
-    .hero-cta { display: flex; gap: .75rem; flex-wrap: wrap; }
+        .module-id {
+            font-family: 'Fira Code', monospace; color: var(--gold-leaf);
+            font-size: 0.8rem; margin-bottom: 1.5rem; display: block; letter-spacing: 1px;
+        }
 
-    /* buttons */
-    .btn-primary {
-      display: inline-block; padding: .6rem 1.4rem;
-      background: #ff69b4; color: #fff;
-      font-family: 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 600;
-      border-radius: 6px; text-decoration: none; transition: background .15s;
-    }
-    .btn-primary:hover { background: #ff1493; color: #fff; text-decoration: none; }
-    .btn-secondary {
-      display: inline-block; padding: .6rem 1.4rem;
-      border: 1px solid #d0d7de; color: #6b7280;
-      font-family: 'Inter', system-ui, sans-serif; font-size: 13px;
-      border-radius: 6px; text-decoration: none; transition: border-color .15s, color .15s;
-    }
-    .btn-secondary:hover { border-color: #1f2937; color: #1f2937; text-decoration: none; }
+        h3 { 
+            color: var(--gold-leaf); text-transform: uppercase; 
+            letter-spacing: 2px; margin: 0.5rem 0; font-size: 1.6rem;
+        }
 
-    /* features */
-    .features-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1px; background: #e1e4e8;
-      border: 1px solid #e1e4e8; border-radius: 6px;
-      overflow: hidden; margin-bottom: 3rem;
-    }
-    .feature { background: #ffffff; padding: 1.25rem; }
-    .feature-icon { font-size: 1.25rem; margin-bottom: .6rem; display: block; }
-    .feature h3 { font-size: 12px; font-weight: 700; color: #1f2937; margin-bottom: .35rem; }
-    .feature p  { font-size: 12px; color: #6b7280; line-height: 1.6; }
+        p { color: rgba(241, 245, 241, 0.8); line-height: 1.8; font-size: 1rem; flex-grow: 1; }
 
-    /* carousel */
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-    .carousel { margin-bottom: 3rem; }
-    .carousel-container {
-      background: #ffffff; border: 1px solid #e1e4e8;
-      border-radius: 6px; padding: 1.75rem 1.5rem; min-height: 120px;
-    }
-    .quote-item { display: none; animation: fadeIn .6s ease; }
-    .quote-item.active { display: block; }
-    .quote-text { font-size: clamp(13px, 2.5vw, 15px); font-style: italic; color: #1f2937; line-height: 1.7; margin-bottom: .75rem; }
-    .quote-name { font-size: 11px; color: #ff69b4; letter-spacing: .06em; }
+        .cta {
+            margin-top: 2.5rem; display: inline-block; color: var(--gold-leaf);
+            text-decoration: none; border: 1px solid var(--gold-leaf);
+            padding: 0.7rem 2.2rem; text-transform: uppercase; font-size: 0.85rem;
+            letter-spacing: 3px; font-weight: bold; transition: 0.3s;
+            background: rgba(0,0,0,0.2);
+        }
 
-    /* contract hero */
-    .contract-hero {
-      border: 1px solid #d0d7de; border-radius: 6px;
-      padding: 1.75rem 1.5rem; margin-bottom: 3rem; text-align: center;
-    }
-    .contract-hero h2 {
-      font-family: 'Inter', system-ui, sans-serif;
-      font-weight: 700; font-size: clamp(1.3rem, 4vw, 1.75rem);
-      color: #111827; line-height: 1.2; margin-bottom: .75rem;
-    }
-    .ech-sub { font-size: 13px; color: #6b7280; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.7; }
-    .ech-pain { list-style: none; max-width: 420px; margin: 0 auto 1.25rem; text-align: left; }
-    .ech-pain li { font-size: 12px; color: #6b7280; padding-left: 1.1rem; position: relative; margin-bottom: .3rem; }
-    .ech-pain li::before { content: "–"; position: absolute; left: 0; opacity: .4; }
-    .ech-reframe { font-size: 12px; color: #6b7280; font-style: italic; margin-bottom: 1.5rem; opacity: .7; }
-    .ech-solution {
-      background: #f6f8fa; border: 1px solid #e1e4e8;
-      border-radius: 6px; padding: 1.25rem;
-      max-width: 500px; margin: 0 auto 1.25rem; text-align: left;
-    }
-    .ech-solution p { font-size: 12px; line-height: 1.75; color: #1f2937; margin-bottom: .6rem; }
-    .ech-solution p:last-child { margin-bottom: 0; }
-    .ech-outcomes { list-style: none; max-width: 400px; margin: 0 auto 1.75rem; text-align: left; }
-    .ech-outcomes li { font-size: 12px; color: #6b7280; padding-left: 1.4rem; position: relative; margin-bottom: .3rem; }
-    .ech-outcomes li::before { content: "✓"; position: absolute; left: 0; opacity: .4; }
-    .ech-cta {
-      display: inline-block; padding: .6rem 1.4rem;
-      background: #ff69b4; color: #fff;
-      font-family: 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 600;
-      border-radius: 6px; text-decoration: none; transition: background .15s;
-    }
-    .ech-cta:hover { background: #ff1493; color: #fff; text-decoration: none; }
+        .cta:hover { 
+            background: var(--gold-leaf); color: var(--emerald-deep); 
+            box-shadow: 0 0 25px var(--gold-glow);
+        }
 
-    /* section divider */
-    .section-sep { border: none; border-top: 1px solid #e1e4e8; margin: 3rem 0; }
+        /* --- TECH SPEC (VITE SECTION) --- */
+        .specs {
+            max-width: 850px; margin: 8rem auto; padding: 4rem;
+            background: rgba(0,0,0,0.2); border-radius: 20px; 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
 
-    /* guide */
-    .section-label { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #ff69b4; margin-bottom: .6rem; display: block; }
-    h2.section-title {
-      font-family: 'Inter', system-ui, sans-serif;
-      font-weight: 700; font-size: clamp(1.5rem, 4vw, 2rem);
-      color: #111827; line-height: 1.15; margin-bottom: 1rem;
-    }
-    .guide h3 { font-size: 13px; font-weight: 600; color: #1f2937; margin: 2rem 0 .6rem; }
-    .guide h3:first-child { margin-top: 0; }
-    .guide p { font-size: 13px; color: #1f2937; line-height: 1.75; margin-bottom: .9rem; }
-    .guide p:last-child { margin-bottom: 0; }
-    .guide ul { margin: .5rem 0 .9rem 1.25rem; }
-    .guide ul li { font-size: 13px; color: #6b7280; line-height: 1.75; }
+        .specs h2 { color: var(--gold-leaf); text-transform: uppercase; letter-spacing: 4px; margin-bottom: 3rem; }
+        
+        .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; text-align: left; }
+        .spec-item strong { color: var(--gold-leaf); display: block; margin-bottom: 0.5rem; font-size: 0.9rem; text-transform: uppercase; }
+        .spec-item p { font-size: 0.9rem; line-height: 1.6; margin: 0; }
 
-    /* steps */
-    .steps { display: flex; flex-direction: column; gap: 2rem; margin: 1.5rem 0; }
-    .step { display: flex; gap: 1rem; align-items: flex-start; }
-    .step-num {
-      flex-shrink: 0; width: 26px; height: 26px;
-      background: #d0d7de; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 11px; font-weight: 700; color: #6b7280; margin-top: 1px;
-    }
-    .step-body { flex: 1; min-width: 0; }
-    .step-body h3 { margin-top: 0; }
-
-    /* code */
-    pre {
-      background: #f6f8fa; border: 1px solid #e1e4e8;
-      border-radius: 6px; padding: 1rem 1.1rem;
-      overflow-x: auto; -webkit-overflow-scrolling: touch;
-      margin: .6rem 0 1.1rem; font-size: 12px; line-height: 1.65;
-    }
-    pre code {
-      font-family: ui-monospace, 'Fira Code', monospace;
-      color: #1f2937; background: none; border: none; padding: 0; font-size: inherit;
-    }
-    .kw  { color: #cf222e; }
-    .str { color: #0a3069; }
-    .cmt { color: #6e7781; font-style: italic; }
-    .fn  { color: #8250df; }
-    .pk  { color: #ff1493; }
-    .gr  { color: #1a7f37; }
-
-    /* note */
-    .note { border-left: 2px solid #d0d7de; padding: .6rem 1rem; background: #ffffff; border-radius: 0 6px 6px 0; margin: .75rem 0 1rem; }
-    .note p { font-size: 12px; color: #6b7280; margin: 0; }
-    .note.warn { border-left-color: #f59e0b; }
-
-    /* convention table */
-    .conv-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: .6rem 0 1.1rem; }
-    .conv-table td { padding: .5rem .75rem; border: 1px solid #e1e4e8; vertical-align: top; color: #1f2937; }
-    .conv-table td:first-child { color: #6b7280; white-space: nowrap; width: 72px; }
-    .conv-table td:nth-child(2) { color: #1a7f37; font-family: ui-monospace, monospace; word-break: break-all; }
-    .conv-table td:nth-child(3) { color: #6b7280; }
-
-    /* best practices */
-    .bp { margin-bottom: 2rem; }
-    .bp h3 { margin-bottom: .5rem; }
-
-    /* why grid */
-    .why-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1px; background: #e1e4e8;
-      border: 1px solid #e1e4e8; border-radius: 6px;
-      overflow: hidden; margin: 1rem 0 1.5rem;
-    }
-    .why-item { background: #ffffff; padding: .9rem 1.1rem; font-size: 13px; color: #6b7280; }
-
-    /* footer */
-    footer { border-top: 1px solid #e1e4e8; padding: 2.5rem 1.25rem; margin-top: 4rem; }
-    .footer-inner { max-width: 760px; margin: 0 auto; }
-    .footer-links { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; margin-bottom: .9rem; }
-    .footer-links a { font-size: 12px; color: #6b7280; text-decoration: none; transition: color .15s; }
-    .footer-links a:hover { color: #1f2937; }
-    .footer-copy { font-size: 11px; color: #6b7280; }
-
-    /* reveal — fade in on scroll */
-    .reveal { opacity: 1; }
-
-    /* responsive */
-    @media (min-width: 480px) {
-      .wrap { padding: 0 1.5rem; }
-      .nav-inner { padding: 0 1.5rem; }
-      .hero { padding: 5rem 1.5rem 4rem; }
-      footer { padding: 2.5rem 1.5rem; }
-    }
-    @media (min-width: 640px) {
-      .nav-links { display: flex; }
-      .wrap { padding: 0 2rem; }
-      .nav-inner { padding: 0 2rem; }
-      .hero { padding: 6rem 2rem 5rem; }
-      .carousel-container { padding: 2.25rem 2rem; }
-      .contract-hero { padding: 2.5rem; }
-      footer { padding: 3rem 2rem; }
-      pre { font-size: 13px; }
-    }
-    @media (min-width: 960px) {
-      .hero h1 { font-size: 3.5rem; }
-    }
-    @media (max-width: 400px) {
-      .features-grid, .why-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+        footer {
+            padding: 5rem; opacity: 0.4; font-size: 0.75rem; letter-spacing: 5px; 
+            text-align: center; color: var(--gold-leaf);
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <header>
+            <h1>VanillaSpa</h1>
+            <div class="vow-line">High-End Modular Architecture</div>
+            <p style="color: var(--gold-leaf); margin-top: 3rem; opacity: 0.6; font-style: italic; letter-spacing: 1px;">
+                "Architecture is the art of defining the Contract. Engineering is the act of keeping it pure."
+            </p>
+        </header>
 
-<!-- ── NAV ── -->
-<nav>
-  <div class="nav-inner">
-    <a class="nav-logo" href="#">@vanillaspa</a>
-    <div class="nav-links">
-      <a href="#quick-start">Quick Start</a>
-      <a href="#event-bus">Event Bus</a>
-      <a href="#event-contract-docs">Contracts</a>
-      <a href="#database">Database</a>
+        <main class="grid">
+            <article>
+                <span class="module-id">@vanillaspa/web-components</span>
+                <h3>UI Engine</h3>
+                <p>Native Custom Elements architecture. Optimized for Vite's HMR. Clean encapsulation via Shadow DOM with zero abstraction overhead.</p>
+                <a href="https://github.com/vanillaspa/web-components" class="cta">Repository</a>
+            </article>
+
+            <article>
+                <span class="module-id">@vanillaspa/event-bus</span>
+                <h3>Orchestrator</h3>
+                <p>Reactive Pub/Sub messaging core. The invisible 'Contract' that decouples component logic from UI state transitions.</p>
+                <a href="https://github.com/vanillaspa/event-bus" class="cta">Repository</a>
+            </article>
+
+            <article>
+                <span class="module-id">@vanillaspa/sqlite-database</span>
+                <h3>Persistence</h3>
+                <p>Advanced Wasm-wrapper for sql.js. Bringing relational integrity and high-performance SQL querying directly to the browser client.</p>
+                <a href="https://github.com/vanillaspa/sqlite-database" class="cta">Repository</a>
+            </article>
+
+            <article>
+                <span class="module-id">@vanillaspa/boilerplate</span>
+                <h3>Vite Shell</h3>
+                <p>The Master Blueprint. A modern Vite-native environment pre-configured for instant ESM development and industrial-grade builds.</p>
+                <a href="https://github.com/vanillaspa/boilerplate" class="cta">Get Started</a>
+            </article>
+        </main>
+
+        <section class="specs">
+            <h2>Technical Manifesto</h2>
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <strong>Vite-Native Flow</strong>
+                    <p>Leveraging Vite's lightning-fast dev server and HMR for a modern DX without the legacy bloat.</p>
+                </div>
+                <div class="spec-item">
+                    <strong>Pure ESM</strong>
+                    <p>Built for the modern web. Standard JavaScript modules ensure the smallest possible production footprint.</p>
+                </div>
+                <div class="spec-item">
+                    <strong>Complexity Control</strong>
+                    <p>Our &lt;100 LOC modules are a byproduct of rigorous Single Responsibility principles and clean boundaries.</p>
+                </div>
+                <div class="spec-item">
+                    <strong>The Contract</strong>
+                    <p>Guaranteed behavior through strict separation of UI (Components), Logic (Event Bus), and Data (SQLite).</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            VANILLASPA ARCHITECTURE // DESIGNED FOR RADIANCE // 2026
+        </footer>
     </div>
-    <a class="nav-gh" href="https://github.com/vanillaspa/boilerplate" target="_blank">GitHub ↗</a>
-  </div>
-</nav>
-
-<!-- ── HERO ── -->
-<div class="hero">
-  <p class="hero-kicker">Vanilla SPA — Sustainable Web Development</p>
-  <h1>Less framework,<br><em>less WTFs.</em></h1>
-  <p class="hero-sub">Build Single Page Applications with Web Components. Just basic Web-Technology. AI-ready.</p>
-  <div class="hero-cta">
-    <a class="btn-primary" href="#quick-start">Get Started</a>
-    <a class="btn-secondary" href="https://github.com/vanillaspa/boilerplate" target="_blank">View on GitHub</a>
-  </div>
-</div>
-
-<div class="wrap">
-
-  <!-- ── FEATURES ── -->
-  <div class="features-grid reveal">
-    <div class="feature">
-      <span class="feature-icon">📄</span>
-      <h3>Components = HTML Files</h3>
-      <p>Each component is a single <code>.html</code> file with <code>&lt;template&gt;</code>, <code>&lt;style&gt;</code>, and <code>&lt;script&gt;</code>. No compilation needed.</p>
-    </div>
-    <div class="feature">
-      <span class="feature-icon">🔒</span>
-      <h3>Shadow DOM Isolation</h3>
-      <p>CSS scoping built-in. No naming conflicts, no style leaks. Your components stay independent.</p>
-    </div>
-    <div class="feature">
-      <span class="feature-icon">⚡</span>
-      <h3>Sustainable Development</h3>
-      <p>Your components will still work in 10 years. Built on W3C standards.</p>
-    </div>
-    <div class="feature">
-      <span class="feature-icon">🗄️</span>
-      <h3>OPFS SQLite</h3>
-      <p>Full SQLite database in the browser's OPFS. Web Worker per database. No server needed.</p>
-    </div>
-  </div>
-
-  <!-- ── CAROUSEL ── -->
-  <div class="carousel reveal">
-    <div class="carousel-container">
-      <div class="quote-item active">
-        <p class="quote-text">"I was given a task: build a dashboard component. No instructions on which framework to use. I chose the path of least resistance — one .html file, Shadow DOM, done. Vanilla SPA gets out of my way."</p>
-        <p class="quote-name">— Aria, AI Coding Agent</p>
-      </div>
-      <div class="quote-item">
-        <p class="quote-text">"Less framework, less stress — that's not just a tagline for me. Fewer decisions means faster output. I generate a component, it works, we move on."</p>
-        <p class="quote-name">— Lena, AI Full-Stack Assistant</p>
-      </div>
-      <div class="quote-item">
-        <p class="quote-text">"What I appreciate most: I can read the entire component in one glance. Template, style, logic — all in one place. No mental context-switching between five files."</p>
-        <p class="quote-name">— Max, AI Developer Assistant</p>
-      </div>
-      <div class="quote-item">
-        <p class="quote-text">"I don't have to guess what a framework abstraction does under the hood. With Vanilla SPA, it's just the platform. I speak W3C — and so does the browser."</p>
-        <p class="quote-name">— Nova, Autonomous Frontend Agent</p>
-      </div>
-      <div class="quote-item">
-        <p class="quote-text">"Tree-shaking? Bundle analysis? I just... don't need to think about it. I build what's needed. Nothing ships that wasn't written."</p>
-        <p class="quote-name">— Finn, AI Pair Programmer</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── CONTRACT HERO ── -->
-  <div class="contract-hero reveal" id="event-contract">
-    <h2>Stop Debugging Events.<br>Start Reading Contracts.</h2>
-    <p class="ech-sub">The one-page system that eliminates 80% of event-driven UI bugs — before you write a single component.</p>
-    <ul class="ech-pain">
-      <li>"What events does this component listen to?"</li>
-      <li>"What's supposed to be in <code>event.detail</code> here?"</li>
-      <li>"Is this event scoped or does it broadcast?"</li>
-      <li>"Why isn't this component responding?"</li>
-      <li>"Who dispatches this event and when?"</li>
-    </ul>
-    <p class="ech-reframe">These aren't debugging questions. They're contract questions. Nobody wrote the contract at design time.</p>
-    <div class="ech-solution">
-      <p><strong>The Event API Contract</strong> is a single data file that answers all five questions before your components exist. It defines the event name, the direction, the detail shape, the routing rule, and the response pattern.</p>
-      <p>Write it first. Build from it second.</p>
-      <p>Your components become implementations of an agreement that already exists — not reverse-engineered guesses about what someone else intended.</p>
-    </div>
-    <ul class="ech-outcomes">
-      <li>Components that work together the first time.</li>
-      <li>Reviews that take minutes instead of hours.</li>
-      <li>New team members productive on day one.</li>
-      <li>AI-generated code that's correct because the spec is unambiguous.</li>
-    </ul>
-    <a href="#event-contract-docs" class="ech-cta">Get the Event API Contract →</a>
-  </div>
-
-  <hr class="section-sep">
-
-  <!-- ── QUICK START ── -->
-  <section id="quick-start" class="guide reveal">
-    <span class="section-label">01 — Installation</span>
-    <h2 class="section-title">Quick Start</h2>
-    <p>Vanilla SPA is built for AI-ready development of W3C standards-conforming <strong>web-components</strong>. No magic, no virtual DOM — just the platform.</p>
-
-    <h3>Grab the boilerplate</h3>
-    <pre><code>git clone https://github.com/vanillaspa/boilerplate.git</code></pre>
-    <p>Or set up manually:</p>
-
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-body">
-          <h3>Create your project</h3>
-          <pre><code>npm init -y
-npm install @vanillaspa/web-components @vanillaspa/event-bus @vanillaspa/sqlite-database
-npm install vite --save-dev</code></pre>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-body">
-          <h3>Configure scripts</h3>
-          <pre><code>{
-  <span class="str">"type"</span>: <span class="str">"module"</span>,
-  <span class="str">"scripts"</span>: {
-    <span class="str">"dev"</span>:     <span class="str">"vite"</span>,
-    <span class="str">"build"</span>:   <span class="str">"vite build"</span>,
-    <span class="str">"preview"</span>: <span class="str">"vite preview"</span>
-  }
-}</code></pre>
-          <p>For SQLite WASM, you MUST <a href="https://github.com/vanillaspa/boilerplate/blob/main/vite.config.js">configure Vite</a>.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-body">
-          <h3>Set up the folder structure</h3>
-          <pre><code>project/
-├── index.html
-├── package.json
-└── src/
-    ├── components/
-    │   └── app/
-    │        └── app-start.html
-    ├── contracts/
-    │   └── sqlite.contract.js
-    └── main.js</code></pre>
-          <p><code>@vanillaspa/web-components</code> scans <code>/src/components</code>. All found components are added automagically to your <code>customElements</code> registry.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <div class="step-body">
-          <h3>Run dev server</h3>
-          <pre><code>npm run dev</code></pre>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <hr class="section-sep">
-
-  <!-- ── FIRST COMPONENT ── -->
-  <section id="first-component" class="guide reveal">
-    <span class="section-label">02 — Components</span>
-    <h2 class="section-title">Your First Component</h2>
-    <p><strong>Filename convention:</strong> <code>/src/components/{prefix}/{prefix}-{name}.html</code></p>
-    <pre><code>app-start.html           →  &lt;app-start&gt;
-app-start-page-home.html →  &lt;app-start-page-home&gt;</code></pre>
-
-    <h3>File: <code>/src/components/app/app-start.html</code></h3>
-    <pre><code><span class="cmt">&lt;!-- &lt;template&gt;, &lt;style&gt;, &lt;script&gt; must be top-level siblings --&gt;</span>
-
-<span class="pk">&lt;template&gt;</span>
-  &lt;header&gt;
-    &lt;h1&gt;My custom element&lt;/h1&gt;
-  &lt;/header&gt;
-  &lt;main&gt;
-    &lt;p&gt;Hello World!&lt;/p&gt;
-  &lt;/main&gt;
-<span class="pk">&lt;/template&gt;</span>
-
-<span class="pk">&lt;style&gt;</span>
-  :host { display: block; }
-  header { padding: 1rem 2rem; background: #f9fafb; border-bottom: 1px solid #e5e7eb; }
-  h1 { color: #ff69b4; font-size: 1.5rem; }
-<span class="pk">&lt;/style&gt;</span>
-
-<span class="pk">&lt;script&gt;</span>
-  <span class="cmt">// shadowDocument is automatically available</span>
-  <span class="kw">const</span> h1 = shadowDocument.<span class="fn">querySelector</span>(<span class="str">'h1'</span>);
-  console.<span class="fn">log</span>(<span class="str">'Component loaded:'</span>, h1.textContent);
-<span class="pk">&lt;/script&gt;</span></code></pre>
-
-    <p>The <code>&lt;script&gt;</code> body is compiled into an <code>AsyncFunction</code> with <code>shadowDocument</code> (your shadow root) passed as a parameter. Top-level <code>await</code> and dynamic <code>import()</code> work out of the box.</p>
-    <div class="note"><p><strong>Important:</strong> <code>&lt;template&gt;</code>, <code>&lt;style&gt;</code>, and <code>&lt;script&gt;</code> must be siblings at the top level — not nested inside each other.</p></div>
-  </section>
-
-  <hr class="section-sep">
-
-  <!-- ── WEB-COMPONENTS ── -->
-  <section id="web-components" class="guide reveal">
-    <span class="section-label">03 — Shadow DOM</span>
-    <h2 class="section-title">Web-Components</h2>
-    <p>Vanilla SPA passes <code>shadowDocument</code> directly into every component script. It's your component's Shadow Root — no setup needed.</p>
-    <pre><code><span class="pk">&lt;script&gt;</span>
-  <span class="cmt">// Direct Shadow DOM access</span>
-  <span class="kw">const</span> button = shadowDocument.<span class="fn">getElementById</span>(<span class="str">'my-btn'</span>);
-  <span class="kw">const</span> output = shadowDocument.<span class="fn">querySelector</span>(<span class="str">'.result'</span>);
-
-  button.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, () => {
-    output.textContent = <span class="str">'Clicked!'</span>;
-  });
-
-  <span class="cmt">// Access the host element</span>
-  <span class="kw">const</span> host = shadowDocument.host;
-  console.<span class="fn">log</span>(host.tagName); <span class="cmt">// "APP-START"</span>
-<span class="pk">&lt;/script&gt;</span></code></pre>
-    <div class="note warn"><p><strong>Note:</strong> Scripts run as async functions, not ES modules. Use dynamic <code>import()</code> instead of static <code>import</code> statements. Use the <code>data-action</code> pattern for functions called from templates.</p></div>
-  </section>
-
-  <hr class="section-sep">
-
-  <!-- ── EVENT BUS ── -->
-  <section id="event-bus" class="guide reveal">
-    <span class="section-label">04 — Event Bus</span>
-    <h2 class="section-title">Event Bus</h2>
-    <p><code>@vanillaspa/event-bus</code> provides context-scoped events. Listeners are automatically cleaned up when a component disconnects — no manual teardown needed.</p>
-
-    <h3>Setup in <code>src/main.js</code></h3>
-    <pre><code><span class="fn">import</span>(<span class="str">'@vanillaspa/web-components'</span>);
-
-customElements.<span class="fn">whenDefined</span>(<span class="str">'router-app2'</span>).<span class="fn">then</span>(() => {
-    Promise.<span class="fn">all</span>([
-        <span class="fn">import</span>(<span class="str">'@vanillaspa/event-bus'</span>),
-        <span class="fn">import</span>(<span class="str">'@vanillaspa/sqlite-database'</span>),
-        ...Object.<span class="fn">values</span>(
-            import.meta.<span class="fn">glob</span>(<span class="str">'/src/contracts/*.contract.js'</span>, { eager: <span class="kw">true</span> })
-        ),
-    ]).<span class="fn">then</span>((importedModules) => {
-        importedModules.<span class="fn">forEach</span>((module) => {
-            <span class="kw">if</span> (!module.name) <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">'Missing name in imported module.'</span>);
-            window[module.name] = Object.<span class="fn">freeze</span>({ ...module });
-        });
-    }).<span class="fn">finally</span>(() => {
-        document.body.<span class="fn">replaceChildren</span>();
-        document.body.<span class="fn">appendChild</span>(document.<span class="fn">createElement</span>(<span class="str">'router-app2'</span>));
-    });
-});</code></pre>
-    <p>Every imported module — npm packages and local contracts alike — is frozen and exposed on <code>window</code> under its <code>name</code> export. This makes <code>window.eventbus</code>, <code>window.sqlite</code>, <code>window.SqliteContract</code>, etc. available to all component scripts without explicit imports.</p>
-
-    <h3>In your component</h3>
-    <pre><code><span class="pk">&lt;script&gt;</span>
-<span class="kw">const</span> host = shadowDocument.host;
-
-<span class="cmt">// Listen — scoped to this component instance</span>
-eventbus.<span class="fn">addEventListener</span>(<span class="str">'user:action'</span>, (e) => {
-    console.<span class="fn">log</span>(<span class="str">'Action:'</span>, e.detail.action);
-}, host);
-
-<span class="cmt">// Dispatch — scoped to this component instance</span>
-eventbus.<span class="fn">dispatchEvent</span>(
-    <span class="kw">new</span> <span class="fn">CustomEvent</span>(<span class="str">'user:action'</span>, { detail: { action: <span class="str">'clicked'</span> } }),
-    host
-);
-<span class="pk">&lt;/script&gt;</span></code></pre>
-  </section>
-
-  <hr class="section-sep">
-
-  <!-- ── EVENT CONTRACT ── -->
-  <section id="event-contract-docs" class="guide reveal">
-    <span class="section-label">05 — Event Contract</span>
-    <h2 class="section-title">Event Contract</h2>
-    <p>An Event Contract is a plain data file in <code>src/contracts/</code> that declares the event names, detail shapes, and response patterns for a namespace. It has no runtime behaviour — it is the source of truth an AI CLI reads to generate correct <code>addEventListener</code> and <code>dispatchEvent</code> calls.</p>
-    <p>Add a <code>*.contract.js</code> file and it is automatically picked up by <code>main.js</code> and exposed on <code>window</code>.</p>
-
-    <h3><code>src/contracts/sqlite.contract.js</code></h3>
-    <pre><code><span class="kw">export const</span> name      = <span class="str">'SqliteContract'</span>;
-<span class="kw">export const</span> namespace = <span class="str">'sqlite'</span>;
-<span class="kw">export const</span> events    = {
-    create:    { detail: { name: <span class="str">'string'</span> },                                 past: <span class="str">'created'</span>    },
-    query:     { detail: { sql: <span class="str">'string'</span>, name: <span class="str">'string'</span> },                  past: <span class="str">'queried'</span>    },
-    statement: { detail: { sql: <span class="str">'string'</span>, values: <span class="str">'array'</span>, name: <span class="str">'string'</span> }, past: <span class="str">'executed'</span>   },
-    close:     { detail: { name: <span class="str">'string'</span> },                                 past: <span class="str">'closed'</span>     },
-    delete:    { detail: { name: <span class="str">'string'</span> },                                 past: <span class="str">'deleted'</span>    },
-    upload:    { detail: { fileName: <span class="str">'string'</span>, arrayBuffer: <span class="str">'any'</span> },         past: <span class="str">'uploaded'</span>   },
-    download:  { detail: { name: <span class="str">'string'</span> },                                 past: <span class="str">'downloaded'</span> },
-};</code></pre>
-
-    <h3>Naming convention</h3>
-    <table class="conv-table">
-      <tr><td>request</td>  <td>sqlite:{action}</td>                 <td>2-fold · scoped to host</td></tr>
-      <tr><td>response</td> <td>sqlite:{past}:{event.timeStamp}</td> <td>3-fold · correlated</td></tr>
-      <tr><td>error</td>    <td>sqlite:error:{event.timeStamp}</td>  <td>3-fold · correlated</td></tr>
-    </table>
-
-    <h3>Bridge side — the component that handles requests</h3>
-    <pre><code><span class="pk">&lt;script&gt;</span>
-<span class="kw">const</span> host = shadowDocument.host;
-
-eventbus.<span class="fn">addEventListener</span>(<span class="str">'sqlite:query'</span>, <span class="kw">async</span> (event) => {
-    <span class="kw">const</span> { sql, name } = event.detail;
-    <span class="kw">const</span> result = <span class="kw">await</span> sqlite.<span class="fn">executeQuery</span>(sql, name);
-    eventbus.<span class="fn">dispatchEvent</span>(
-        <span class="kw">new</span> <span class="fn">CustomEvent</span>(<span class="str">`sqlite:queried:${event.timeStamp}`</span>, { detail: { result } }),
-        host
-    );
-}, host);
-<span class="pk">&lt;/script&gt;</span></code></pre>
-
-    <h3>Consumer side — any component that needs data</h3>
-    <pre><code><span class="pk">&lt;script&gt;</span>
-<span class="kw">const</span> host = shadowDocument.host;
-<span class="kw">const</span> req  = <span class="kw">new</span> <span class="fn">CustomEvent</span>(<span class="str">'sqlite:query'</span>, {
-    detail: { sql: <span class="str">'SELECT * FROM notes'</span>, name: <span class="str">'notes'</span> }
-});
-
-eventbus.<span class="fn">addEventListener</span>(<span class="str">`sqlite:queried:${req.timeStamp}`</span>, (e) => {
-    console.<span class="fn">log</span>(e.detail.result);
-}, host);
-
-eventbus.<span class="fn">dispatchEvent</span>(req, host);
-<span class="pk">&lt;/script&gt;</span></code></pre>
-    <div class="note"><p><code>event.timeStamp</code> is the correlation key — each request gets its own response listener, so concurrent calls never interfere with each other.</p></div>
-  </section>
-
-  <hr class="section-sep">
-
-  <!-- ── DATABASE ── -->
-  <section id="database" class="guide reveal">
-    <span class="section-label">06 — Database</span>
-    <h2 class="section-title">Database</h2>
-    <p><code>@vanillaspa/sqlite-database</code> provides a full SQLite database in the browser, persisted in OPFS, running in a dedicated Web Worker per database.</p>
-    <pre><code><span class="pk">&lt;script&gt;</span>
-<span class="cmt">// Create (or reopen) a named database</span>
-<span class="kw">await</span> sqlite.<span class="fn">createDB</span>(<span class="str">'my-app'</span>);
-
-<span class="cmt">// DDL — create a table</span>
-<span class="kw">await</span> sqlite.<span class="fn">executeQuery</span>(<span class="str">`
-  CREATE TABLE IF NOT EXISTS users (
-    id    INTEGER PRIMARY KEY,
-    name  TEXT,
-    email TEXT
-  )
-`</span>, <span class="str">'my-app'</span>);
-
-<span class="cmt">// Parameterised insert — SQL injection safe</span>
-<span class="kw">await</span> sqlite.<span class="fn">executeStatement</span>(
-    <span class="str">'INSERT INTO users (name, email) VALUES (?, ?)'</span>,
-    [<span class="str">'Anna'</span>, <span class="str">'<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3e5f50505f7e5b465f534e525b105d5153">[email&#160;protected]</a>'</span>],
-    <span class="str">'my-app'</span>
-);
-
-<span class="cmt">// Query</span>
-<span class="kw">const</span> users = <span class="kw">await</span> sqlite.<span class="fn">executeQuery</span>(<span class="str">'SELECT * FROM users'</span>, <span class="str">'my-app'</span>);
-<span class="pk">&lt;/script&gt;</span></code></pre>
-  </section>
-
-  <hr class="section-sep">
-
-  <!-- ── BIND ACTIONS ── -->
-  <section id="bind-actions" class="guide reveal">
-    <span class="section-label">07 — Templates</span>
-    <h2 class="section-title">Using Functions in Templates</h2>
-    <p>Component scripts run as async functions, so declared functions are not global. Use the <code>data-action</code> pattern with <code>bindActions()</code> to wire template buttons to script functions.</p>
-
-    <h3>Create <code>/src/bindActions.js</code></h3>
-    <pre><code><span class="kw">export function</span> <span class="fn">bindActions</span>(shadowDocument, actions) {
-    shadowDocument.<span class="fn">querySelectorAll</span>(<span class="str">'[data-action]'</span>).<span class="fn">forEach</span>(el => {
-        <span class="kw">const</span> fn = actions[el.dataset.action];
-        <span class="kw">if</span> (fn) {
-            eventbus.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, fn, el);
-            el.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, e => eventbus.<span class="fn">dispatchEvent</span>(e, el));
-        }
-    });
-}</code></pre>
-
-    <h3>Use in a component</h3>
-    <pre><code><span class="pk">&lt;template&gt;</span>
-  &lt;button data-action=<span class="str">"greet"</span>&gt;Say Hello&lt;/button&gt;
-  &lt;button data-action=<span class="str">"celebrate"</span>&gt;Celebrate&lt;/button&gt;
-  &lt;output id=<span class="str">"out"</span>&gt;&lt;/output&gt;
-<span class="pk">&lt;/template&gt;</span>
-
-<span class="pk">&lt;script&gt;</span>
-  <span class="kw">const</span> { bindActions } = <span class="kw">await</span> <span class="fn">import</span>(<span class="str">'/src/bindActions.js'</span>);
-  <span class="kw">const</span> out = shadowDocument.<span class="fn">getElementById</span>(<span class="str">'out'</span>);
-
-  <span class="kw">function</span> <span class="fn">greet</span>()     { out.value = <span class="str">'Hello!'</span>; }
-  <span class="kw">function</span> <span class="fn">celebrate</span>() { out.value = <span class="str">'Party!'</span>; }
-
-  <span class="fn">bindActions</span>(shadowDocument, { greet, celebrate });
-<span class="pk">&lt;/script&gt;</span></code></pre>
-  </section>
-
-  <hr class="section-sep">
-
-  <!-- ── BEST PRACTICES ── -->
-  <section id="best-practices" class="guide reveal">
-    <span class="section-label">08 — Best Practices</span>
-    <h2 class="section-title">Best Practices</h2>
-
-    <div class="bp">
-      <h3>Follow the filename convention</h3>
-      <pre><code>/src/components/{prefix}/{prefix}-{name}.html</code></pre>
-      <p>Example: <code>page/page-home.html</code> → <code>&lt;page-home&gt;</code></p>
-    </div>
-
-    <div class="bp">
-      <h3>Always pass <code>host</code> to the event bus</h3>
-      <pre><code>eventbus.<span class="fn">addEventListener</span>(<span class="str">'my-event'</span>, handler, host);</code></pre>
-      <p>Listeners are automatically cleaned up when the component disconnects.</p>
-    </div>
-
-    <div class="bp">
-      <h3>Use dynamic <code>import()</code></h3>
-      <pre><code><span class="cmt">// Static import won't work inside component scripts</span>
-<span class="kw">const</span> { helper } = <span class="kw">await</span> <span class="fn">import</span>(<span class="str">'/src/helper.js'</span>);</code></pre>
-    </div>
-
-    <div class="bp">
-      <h3>Don't nest <code>&lt;script&gt;</code> inside <code>&lt;template&gt;</code></h3>
-      <pre><code><span class="cmt">&lt;!-- Wrong --&gt;</span>
-&lt;template&gt;
-  &lt;div&gt;...&lt;/div&gt;
-  &lt;script&gt;...&lt;/script&gt;
-&lt;/template&gt;
-
-<span class="cmt">&lt;!-- Correct --&gt;</span>
-&lt;template&gt;&lt;div&gt;...&lt;/div&gt;&lt;/template&gt;
-&lt;script&gt;...&lt;/script&gt;</code></pre>
-    </div>
-
-    <div class="bp">
-      <h3>Don't use <code>onclick</code> in templates</h3>
-      <pre><code><span class="cmt">&lt;!-- Won't work --&gt;</span>
-&lt;button onclick=<span class="str">"fn()"</span>&gt;Click&lt;/button&gt;
-
-<span class="cmt">&lt;!-- Use data-action --&gt;</span>
-&lt;button data-action=<span class="str">"fn"</span>&gt;Click&lt;/button&gt;</code></pre>
-    </div>
-  </section>
-
-  <hr class="section-sep">
-
-  <!-- ── WHY ── -->
-  <section id="why" class="guide reveal">
-    <span class="section-label">09 — Why Vanilla SPA</span>
-    <h2 class="section-title">Why Vanilla SPA?</h2>
-    <div class="why-grid">
-      <div class="why-item">AI-friendly SPA generation</div>
-      <div class="why-item">Government and public sector apps</div>
-      <div class="why-item">Internal tools and dashboards</div>
-      <div class="why-item">Offline-first applications</div>
-      <div class="why-item">Long-term maintainability</div>
-      <div class="why-item">Teams tired of framework churn</div>
-    </div>
-    <p>Built on W3C standards: Custom Elements, Shadow DOM, ES Modules. No proprietary APIs. Your code will still work in 10 years.</p>
-  </section>
-
-</div><!-- /wrap -->
-
-<!-- ── FOOTER ── -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-links">
-      <a href="https://github.com/vanillaspa/boilerplate" target="_blank">GitHub</a>
-      <a href="https://github.com/vanillaspa/web-components" target="_blank">web-components</a>
-      <a href="https://github.com/vanillaspa/event-bus" target="_blank">event-bus</a>
-      <a href="https://github.com/vanillaspa/sqlite-database" target="_blank">sqlite-database</a>
-      <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components" target="_blank">Web Components Docs</a>
-    </div>
-    <p class="footer-copy">Vanilla SPA — Easy web development with Single File Components in .html files · Unlicense — Public Domain</p>
-  </div>
-</footer>
-
-<script>
-  const quotes = document.querySelectorAll('.quote-item');
-  let qi = 0;
-  setInterval(() => {
-    quotes[qi].classList.remove('active');
-    qi = (qi + 1) % quotes.length;
-    quotes[qi].classList.add('active');
-  }, 8000);
-</script>
-
 </body>
 </html>
