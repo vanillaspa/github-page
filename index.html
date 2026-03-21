@@ -143,21 +143,25 @@
         }
 
         /* --- CONTRACT VISUALIZATION SECTION --- */
+        /* CSS for the visualization structure */
         .contract-visualizer {
             margin: 10rem auto;
-            padding: 4rem;
+            padding: 5rem 3rem;
             background: rgba(255, 255, 255, 0.02);
             border-radius: 30px;
             border: 1px solid rgba(212, 175, 55, 0.1);
             box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.3);
             text-align: center;
+            overflow: hidden;
+            /* For the pulses */
         }
 
         .contract-visualizer h2 {
             color: var(--gold-leaf);
             text-transform: uppercase;
             letter-spacing: 5px;
-            margin-bottom: 4rem;
+            margin-bottom: 5rem;
+            text-shadow: 0 0 10px var(--gold-glow);
         }
 
         .flow-container {
@@ -166,9 +170,12 @@
             align-items: center;
             position: relative;
             gap: 2rem;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-        /* The Connecting Line (The Bus) */
+        /* THE BUS LINE (The Contract) */
         .flow-container::after {
             content: '';
             position: absolute;
@@ -183,57 +190,180 @@
 
         .flow-node {
             background: var(--emerald-bright);
-            border: 1px solid var(--gold-leaf);
-            padding: 2rem;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            padding: 2.5rem;
             border-radius: 15px;
             z-index: 1;
             width: 250px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
         }
 
         .flow-node:hover {
             transform: scale(1.05);
+            border-color: var(--gold-leaf);
+            box-shadow: 0 0 30px var(--gold-glow);
         }
 
         .flow-node strong {
             display: block;
             color: var(--gold-leaf);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             text-transform: uppercase;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
         }
 
         .flow-node code {
             font-family: 'Fira Code', monospace;
             font-size: 0.8rem;
-            color: #fff;
+            color: rgba(241, 245, 241, 0.9);
             background: rgba(0, 0, 0, 0.3);
-            padding: 0.5rem;
+            padding: 0.8rem;
             display: block;
             border-radius: 5px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            line-height: 1.4;
         }
 
+        /* --- THE CONTRACT HUB (Event-Bus) --- */
         .contract-hub {
-            width: 150px;
-            height: 150px;
-            background: radial-gradient(circle, var(--gold-leaf) 0%, transparent 70%);
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, var(--gold-leaf) 0%, transparent 80%);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 2px solid var(--gold-leaf);
-            box-shadow: 0 0 30px var(--gold-glow);
+            border: 2px solid var(--godly-gold);
+            box-shadow: 0 0 40px var(--gold-glow), inset 0 0 20px rgba(0, 0, 0, 0.5);
             z-index: 2;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contract-hub:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 60px rgba(212, 175, 55, 0.8), inset 0 0 20px rgba(0, 0, 0, 0.7);
         }
 
         .contract-hub span {
             color: var(--emerald-deep);
             font-weight: 900;
-            font-size: 0.8rem;
+            font-size: 1rem;
             text-transform: uppercase;
             text-align: center;
             line-height: 1.2;
+            letter-spacing: 1px;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.4);
+        }
+
+        /* --- SIMULATION PULSE EFFECT --- */
+        /* The Pulse Particle */
+        .pulse {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: var(--godly-gold);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--godly-gold), 0 0 30px #fff;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            z-index: 3;
+        }
+
+        /* Pulse A: Primary Broadcast (Starts at 0s, loops every 6s) */
+        #pulse-A {
+            animation: flowForward 6s infinite linear;
+        }
+
+        /* Pulse B: Secondary Data (Starts at 0.5s, loops every 6s) */
+        #pulse-B {
+            animation: flowForward 6s infinite linear;
+            animation-delay: 0.5s;
+        }
+
+        /* Pulse C: Resolution/Response (Starts at 3s, loops every 6s) */
+        #pulse-C {
+            animation: flowBackward 6s infinite linear;
+            animation-delay: 3s;
+        }
+
+        @keyframes flowForward {
+            0% {
+                left: 15%;
+                opacity: 0;
+            }
+
+            5% {
+                opacity: 1;
+            }
+
+            45% {
+                opacity: 1;
+            }
+
+            50% {
+                left: 85%;
+                opacity: 0;
+            }
+
+            100% {
+                left: 85%;
+                opacity: 0;
+            }
+
+            /* Stays invisible for the rest of the 6s */
+        }
+
+        @keyframes flowBackward {
+            0% {
+                left: 85%;
+                opacity: 0;
+            }
+
+            5% {
+                opacity: 1;
+            }
+
+            45% {
+                opacity: 1;
+            }
+
+            50% {
+                left: 15%;
+                opacity: 0;
+            }
+
+            100% {
+                left: 15%;
+                opacity: 0;
+            }
+        }
+
+        /* Dynamic Hub Reaction */
+        .contract-hub {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: hubGlow 6s infinite ease-in-out;
+        }
+
+        @keyframes hubGlow {
+
+            0%,
+            40%,
+            60%,
+            100% {
+                box-shadow: 0 0 40px var(--gold-glow);
+                transform: scale(1);
+            }
+
+            50% {
+                box-shadow: 0 0 80px var(--godly-gold);
+                transform: scale(1.1);
+            }
+
+            /* Glows when pulses hit the center */
         }
 
         /* --- TECH SPEC (VITE SECTION) --- */
@@ -331,15 +461,20 @@
             </article>
         </main>
 
-        <section class="contract-visualizer">
-            <h2>Powerful Event Flow using Contracts</h2>
+        <section class="contract-visualizer" id="simulation-container">
+            <h2>The Divine Flow: useContract Simulation</h2>
 
             <div class="flow-container">
+
+                <div class="pulse" id="pulse-A"></div>
+                <div class="pulse" id="pulse-B"></div>
+                <div class="pulse" id="pulse-C"></div>
+
                 <div class="flow-node">
-                    <strong>UI Component</strong>
+                    <strong>UI Component BROADCAST</strong>
                     <code>
-                // Trigger Event<br>
-                useContract().emit('UPDATE_USER', data);
+                // Broadcaster Intent<br>
+                useContract().emit('UPDATE_STATE', data);
             </code>
                 </div>
 
@@ -348,16 +483,18 @@
                 </div>
 
                 <div class="flow-node">
-                    <strong>Module Handler</strong>
+                    <strong>MODULE HANDLER RESOLUTION</strong>
                     <code>
-                // Atomic Logic<br>
-                on('UPDATE_USER', (payload) => { ... });
+                // Module Vow (Guaranteed Behavior)<br>
+                on('UPDATE_STATE', (payload) => { ... });
             </code>
                 </div>
             </div>
 
-            <p style="margin-top: 4rem; color: var(--gold-leaf); opacity: 0.7; font-style: italic;">
-                "Components do not command. They broadcast intent. The Contract guarantees the resolution."
+            <p
+                style="margin-top: 5rem; color: var(--godly-gold); opacity: 0.6; font-style: italic; letter-spacing: 1px;">
+                "Architecture is not about coupling divs to functions. It is about defining the Contract. Broadcast
+                intent; the logic will follow."
             </p>
         </section>
 
@@ -391,5 +528,50 @@
         </footer>
     </div>
 </body>
+
+<script>
+    (function () {
+        const pulses = {
+            A: document.getElementById('pulse-A'),
+            B: document.getElementById('pulse-B'),
+            C: document.getElementById('pulse-C')
+        };
+
+        /**
+         * Triggers a pulse animation safely
+         * @param {HTMLElement} el - The pulse element
+         */
+        function trigger(el) {
+            // 1. Remove classes to reset state
+            el.classList.remove('active');
+
+            // 2. Force a "reflow" (this is the magic trick for CSS animations)
+            // It tells the browser: "Stop what you're doing and calculate the layout now."
+            void el.offsetWidth;
+
+            // 3. Re-add the class to start the animation
+            el.classList.add('active');
+        }
+
+        function sequence() {
+            // Pulse A: Component broadcasts intent (Forward)
+            trigger(pulses.A);
+
+            // Pulse B: Slight delay, following the first event (Forward)
+            setTimeout(() => trigger(pulses.B), 400);
+
+            // Pulse C: The Module Handler responds/acknowledges (Backward)
+            // Triggered after A and B have reached the other side
+            setTimeout(() => trigger(pulses.C), 2000);
+        }
+
+        // Start the first run
+        sequence();
+
+        // Run the sequence every 5 seconds
+        setInterval(sequence, 5000);
+
+    })();
+</script>
 
 </html>
