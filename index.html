@@ -4,414 +4,251 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VanillaSpa | Emerald ESM Architecture</title>
+    <title>VanillaSpa | Architecture for Contract Masters</title>
     <style>
         :root {
-            /* Emerald & Gold Palette */
-            --emerald-deep: #144000;
+            --emerald-deep: #01241a;
             --emerald-bright: #043927;
             --gold-leaf: #d4af37;
-            /* Warmer, brushed gold */
-            --gold-glow: rgba(212, 175, 55, 0.5);
-            --godly-gold: #ffd700;
-            --godly-shine: #fffbe0;
-            --glass-white: rgba(255, 255, 255, 0.05);
+            --gold-glow: rgba(212, 175, 55, 0.4);
             --text-light: #f1f5f1;
-            --vite-accent: #ff007a;
-            /* Neon pink/purple for a tech-contrast against emerald */
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            font-family: 'SF Pro Display', system-ui, -apple-system, sans-serif;
-            background-color: var(--emerald-deep);
+            font-family: 'SF Pro Display', -apple-system, system-ui, sans-serif;
+            background: radial-gradient(circle at 50% 0%, var(--emerald-bright) 0%, var(--emerald-deep) 100%);
             color: var(--text-light);
-            /* Rich Emerald Gradient */
-            background-image: radial-gradient(circle at 50% -20%, var(--emerald-bright) 0%, var(--emerald-deep) 80%);
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow-x: hidden;
         }
 
         .container {
-            max-width: 1100px;
             width: 100%;
-            padding: 0 2rem;
+            max-width: 1100px;
+            padding: 1rem;
         }
 
+        /* --- HERO SECTION --- */
         header {
             text-align: center;
-            padding: 10rem 0 5rem;
+            padding: 4rem 1rem;
         }
 
         h1 {
-            font-size: 5.5rem;
+            font-size: clamp(2.5rem, 8vw, 5.5rem);
+            /* Reactive font size */
             margin: 0;
             text-transform: uppercase;
-            letter-spacing: 0.8rem;
-            font-weight: 900;
-            color: var(--gold-leaf);
-            background: linear-gradient(135deg, var(--godly-gold) 0%, var(--godly-shine) 50%, var(--godly-gold) 100%);
+            letter-spacing: 0.5rem;
+            background: linear-gradient(135deg, #f9f295 0%, #cf9d3c 50%, #f9f295 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 20px var(--gold-glow));
+            filter: drop-shadow(0 0 15px var(--gold-glow));
         }
 
         .vow-line {
-            margin-top: 2rem;
-            font-size: 1rem;
-            letter-spacing: 5px;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--gold-leaf);
             opacity: 0.8;
         }
 
-        /* --- THE MODULES --- */
+        /* --- SYMMETRICAL GRID --- */
         .grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 4rem;
-            width: 100%;
-            margin: 4rem auto;
+            grid-template-columns: 1fr;
+            /* Mobile first: 1 column */
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+            }
+
+            header {
+                padding: 8rem 0 4rem;
+            }
         }
 
         article {
-            position: relative;
-            background: var(--glass-white);
-            /* The "Silver-Green Vessel" shine refined for Emerald */
-            background-image: conic-gradient(from 180deg at 50% 120%, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0) 100%);
-            border-radius: 15px;
-            padding: 3.5rem 2.5rem;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            backdrop-filter: blur(20px);
-            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            background: var(--glass);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            backdrop-filter: blur(15px);
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            transition: 0.4s ease;
         }
 
         article:hover {
-            transform: translateY(-15px);
+            transform: translateY(-10px);
             border-color: var(--gold-leaf);
-            box-shadow: 0 0 40px var(--gold-glow), 0 30px 60px rgba(0, 0, 0, 0.5);
-        }
-
-        .module-id {
-            font-family: 'Fira Code', monospace;
-            color: var(--gold-leaf);
-            font-size: 0.8rem;
-            margin-bottom: 1.5rem;
-            display: block;
-            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         h3 {
             color: var(--gold-leaf);
-            text-transform: uppercase;
             letter-spacing: 2px;
-            margin: 0.5rem 0;
-            font-size: 1.6rem;
-        }
-
-        p {
-            color: rgba(241, 245, 241, 0.8);
-            line-height: 1.8;
-            font-size: 1rem;
-            flex-grow: 1;
+            text-transform: uppercase;
+            margin: 1rem 0;
         }
 
         .cta {
-            margin-top: 2.5rem;
             display: inline-block;
+            margin-top: 2rem;
+            padding: 0.7rem 2rem;
+            border: 1px solid var(--gold-leaf);
             color: var(--gold-leaf);
             text-decoration: none;
-            border: 1px solid var(--gold-leaf);
-            padding: 0.7rem 2.2rem;
             text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 3px;
-            font-weight: bold;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
             transition: 0.3s;
-            background: rgba(0, 0, 0, 0.2);
         }
 
         .cta:hover {
             background: var(--gold-leaf);
             color: var(--emerald-deep);
-            box-shadow: 0 0 25px var(--gold-glow);
         }
 
-        /* --- CONTRACT VISUALIZATION SECTION --- */
-        /* CSS for the visualization structure */
-        .contract-visualizer {
-            margin: 10rem auto;
-            padding: 5rem 3rem;
-            background: rgba(255, 255, 255, 0.02);
+        /* --- SIMULATION (REACTIVE) --- */
+        .visualizer {
+            margin: 5rem 0;
+            padding: 3rem 1rem;
+            background: rgba(0, 0, 0, 0.2);
             border-radius: 30px;
             border: 1px solid rgba(212, 175, 55, 0.1);
-            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            overflow: hidden;
-            /* For the pulses */
-        }
-
-        .contract-visualizer h2 {
-            color: var(--gold-leaf);
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            margin-bottom: 5rem;
-            text-shadow: 0 0 10px var(--gold-glow);
+            width: 100%;
         }
 
         .flow-container {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            /* Mobile: Vertical flow */
             align-items: center;
+            gap: 3rem;
             position: relative;
-            gap: 2rem;
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
         }
 
-        /* THE BUS LINE (The Contract) */
-        .flow-container::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 10%;
-            right: 10%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold-leaf), transparent);
-            z-index: 0;
-            opacity: 0.3;
+        @media (min-width: 768px) {
+            .flow-container {
+                flex-direction: row;
+                justify-content: space-around;
+                padding: 2rem 0;
+            }
         }
 
-        .flow-node {
-            background: var(--emerald-bright);
-            border: 2px solid rgba(212, 175, 55, 0.3);
-            padding: 2.5rem;
-            border-radius: 15px;
-            z-index: 1;
-            width: 250px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            text-align: left;
-        }
-
-        .flow-node:hover {
-            transform: scale(1.05);
-            border-color: var(--gold-leaf);
-            box-shadow: 0 0 30px var(--gold-glow);
-        }
-
-        .flow-node strong {
-            display: block;
-            color: var(--gold-leaf);
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-        }
-
-        .flow-node code {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.8rem;
-            color: rgba(241, 245, 241, 0.9);
-            background: rgba(0, 0, 0, 0.3);
-            padding: 0.8rem;
-            display: block;
-            border-radius: 5px;
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            line-height: 1.4;
-        }
-
-        /* --- THE CONTRACT HUB (Event-Bus) --- */
-        .contract-hub {
-            width: 180px;
-            height: 180px;
-            background: radial-gradient(circle, var(--gold-leaf) 0%, transparent 80%);
+        .hub {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, var(--gold-leaf) 0%, transparent 70%);
+            border: 2px solid var(--gold-leaf);
             border-radius: 50%;
             display: flex;
-            justify-content: center;
             align-items: center;
-            border: 2px solid var(--godly-gold);
-            box-shadow: 0 0 40px var(--gold-glow), inset 0 0 20px rgba(0, 0, 0, 0.5);
-            z-index: 2;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .contract-hub:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 60px rgba(212, 175, 55, 0.8), inset 0 0 20px rgba(0, 0, 0, 0.7);
-        }
-
-        .contract-hub span {
+            justify-content: center;
             color: var(--emerald-deep);
             font-weight: 900;
-            font-size: 1rem;
-            text-transform: uppercase;
             text-align: center;
-            line-height: 1.2;
-            letter-spacing: 1px;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.4);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px var(--gold-glow);
         }
 
-        /* --- SIMULATION PULSE EFFECT --- */
-        /* The Pulse Particle */
+        .node {
+            background: var(--emerald-bright);
+            border: 1px solid var(--gold-leaf);
+            padding: 1.5rem;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        /* --- PULSE ANIMATION --- */
         .pulse {
             position: absolute;
-            width: 6px;
-            height: 6px;
-            background-color: var(--godly-gold);
+            width: 8px;
+            height: 8px;
+            background: #fff;
             border-radius: 50%;
-            box-shadow: 0 0 15px var(--godly-gold), 0 0 30px #fff;
-            top: 50%;
-            transform: translateY(-50%);
+            box-shadow: 0 0 15px var(--gold-leaf);
             opacity: 0;
-            z-index: 3;
         }
 
-        /* Pulse A: Primary Broadcast (Starts at 0s, loops every 6s) */
-        #pulse-A {
-            animation: flowForward 6s infinite linear;
-        }
-
-        /* Pulse B: Secondary Data (Starts at 0.5s, loops every 6s) */
-        #pulse-B {
-            animation: flowForward 6s infinite linear;
-            animation-delay: 0.5s;
-        }
-
-        /* Pulse C: Resolution/Response (Starts at 3s, loops every 6s) */
-        #pulse-C {
-            animation: flowBackward 6s infinite linear;
-            animation-delay: 3s;
-        }
-
-        @keyframes flowForward {
+        /* Mobile Vertical Pulses */
+        @keyframes flowDown {
             0% {
-                left: 15%;
+                top: 10%;
                 opacity: 0;
             }
 
-            5% {
+            10% {
                 opacity: 1;
             }
 
-            45% {
+            90% {
                 opacity: 1;
-            }
-
-            50% {
-                left: 85%;
-                opacity: 0;
             }
 
             100% {
-                left: 85%;
+                top: 90%;
                 opacity: 0;
             }
-
-            /* Stays invisible for the rest of the 6s */
         }
 
-        @keyframes flowBackward {
+        /* Desktop Horizontal Pulses */
+        @keyframes flowRight {
             0% {
-                left: 85%;
+                left: 10%;
                 opacity: 0;
             }
 
-            5% {
+            10% {
                 opacity: 1;
             }
 
-            45% {
+            90% {
                 opacity: 1;
             }
 
-            50% {
-                left: 15%;
-                opacity: 0;
-            }
-
             100% {
-                left: 15%;
+                left: 90%;
                 opacity: 0;
             }
         }
 
-        /* Dynamic Hub Reaction */
-        .contract-hub {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: hubGlow 6s infinite ease-in-out;
+        .pulse-1 {
+            animation: flowDown 4s infinite linear;
         }
 
-        @keyframes hubGlow {
-
-            0%,
-            40%,
-            60%,
-            100% {
-                box-shadow: 0 0 40px var(--gold-glow);
-                transform: scale(1);
+        @media (min-width: 768px) {
+            .pulse-1 {
+                animation: flowRight 4s infinite linear;
+                top: 50%;
             }
-
-            50% {
-                box-shadow: 0 0 80px var(--godly-gold);
-                transform: scale(1.1);
-            }
-
-            /* Glows when pulses hit the center */
-        }
-
-        /* --- TECH SPEC (VITE SECTION) --- */
-        .specs {
-            max-width: 850px;
-            margin: 8rem auto;
-            padding: 4rem;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-        }
-
-        .specs h2 {
-            color: var(--gold-leaf);
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-bottom: 3rem;
-        }
-
-        .spec-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            text-align: left;
-        }
-
-        .spec-item strong {
-            color: var(--gold-leaf);
-            display: block;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-        }
-
-        .spec-item p {
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin: 0;
         }
 
         footer {
-            padding: 5rem;
-            opacity: 0.4;
-            font-size: 0.75rem;
-            letter-spacing: 5px;
+            padding: 4rem;
+            opacity: 0.5;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
             text-align: center;
-            color: var(--gold-leaf);
         }
     </style>
 </head>
@@ -420,158 +257,43 @@
     <div class="container">
         <header>
             <h1>VanillaSpa</h1>
-            <div class="vow-line">High-End Modular Architecture</div>
-            <p
-                style="color: var(--gold-leaf); margin-top: 3rem; opacity: 0.6; font-style: italic; letter-spacing: 1px;">
-                "Architecture is the art of defining the Contract. Engineering is the act of keeping it pure."
-            </p>
+            <div class="vow-line">Less framework, less stress.</div>
         </header>
 
         <main class="grid">
             <article>
-                <span class="module-id">@vanillaspa/web-components</span>
                 <h3>UI Engine</h3>
-                <p>Native Custom Elements architecture. Optimized for Vite's HMR. Clean encapsulation via Shadow DOM
-                    with zero abstraction overhead.</p>
+                <p>Native Web Components. Optimized for Vite. Zero abstraction tax.</p>
                 <a href="https://github.com/vanillaspa/web-components" class="cta">Repository</a>
             </article>
-
             <article>
-                <span class="module-id">@vanillaspa/event-bus</span>
-                <h3>Orchestrator</h3>
-                <p>Reactive Pub/Sub messaging core. The invisible 'Contract' that decouples component logic from UI
-                    state transitions.</p>
+                <h3>Event Bus</h3>
+                <p>The Contract. Decoupled reactive messaging logic.</p>
                 <a href="https://github.com/vanillaspa/event-bus" class="cta">Repository</a>
             </article>
-
             <article>
-                <span class="module-id">@vanillaspa/sqlite-database</span>
-                <h3>Persistence</h3>
-                <p>Advanced Wasm-wrapper for SQLite. Bringing relational integrity and high-performance SQL querying
-                    directly to the browser client.</p>
+                <h3>SQLite DB</h3>
+                <p>Relational truth. Wasm-powered persistence.</p>
                 <a href="https://github.com/vanillaspa/sqlite-database" class="cta">Repository</a>
             </article>
-
             <article>
-                <span class="module-id">@vanillaspa/boilerplate</span>
                 <h3>Vite Shell</h3>
-                <p>The Master Blueprint. A modern Vite-native environment pre-configured for instant ESM development and
-                    industrial-grade builds.</p>
-                <a href="https://github.com/vanillaspa/boilerplate" class="cta">Get Started</a>
+                <p>The Master Blueprint. Pre-configured for speed.</p>
+                <a href="https://github.com/vanillaspa/boilerplate" class="cta">Boilerplate</a>
             </article>
         </main>
 
-        <section class="contract-visualizer" id="simulation-container">
-            <h2>The Divine Flow: useContract Simulation</h2>
-
+        <section class="visualizer">
             <div class="flow-container">
-
-                <div class="pulse" id="pulse-A"></div>
-                <div class="pulse" id="pulse-B"></div>
-                <div class="pulse" id="pulse-C"></div>
-
-                <div class="flow-node">
-                    <strong>UI Component BROADCAST</strong>
-                    <code>
-                // Broadcaster Intent<br>
-                useContract().emit('UPDATE_STATE', data);
-            </code>
-                </div>
-
-                <div class="contract-hub">
-                    <span>The Event-Bus<br>Contract</span>
-                </div>
-
-                <div class="flow-node">
-                    <strong>MODULE HANDLER RESOLUTION</strong>
-                    <code>
-                // Module Vow (Guaranteed Behavior)<br>
-                on('UPDATE_STATE', (payload) => { ... });
-            </code>
-                </div>
-            </div>
-
-            <p
-                style="margin-top: 5rem; color: var(--godly-gold); opacity: 0.6; font-style: italic; letter-spacing: 1px;">
-                "Architecture is not about coupling divs to functions. It is about defining the Contract. Broadcast
-                intent; the logic will follow."
-            </p>
-        </section>
-
-        <section class="specs">
-            <h2>Technical Manifesto</h2>
-            <div class="spec-grid">
-                <div class="spec-item">
-                    <strong>Vite-Native Flow</strong>
-                    <p>Leveraging Vite's lightning-fast dev server and HMR for a modern DX without the legacy bloat.</p>
-                </div>
-                <div class="spec-item">
-                    <strong>Pure ESM</strong>
-                    <p>Built for the modern web. Standard JavaScript modules ensure the smallest possible production
-                        footprint.</p>
-                </div>
-                <div class="spec-item">
-                    <strong>Complexity Control</strong>
-                    <p>Our &lt;100 LOC modules are a byproduct of rigorous Single Responsibility principles and clean
-                        boundaries.</p>
-                </div>
-                <div class="spec-item">
-                    <strong>The Contract</strong>
-                    <p>Guaranteed behavior through strict separation of UI (Components), Logic (Event Bus), and Data
-                        (SQLite).</p>
-                </div>
+                <div class="pulse pulse-1"></div>
+                <div class="node"><strong>Component</strong><br><small>Emit Intent</small></div>
+                <div class="hub">The Bus<br>Contract</div>
+                <div class="node"><strong>Module</strong><br><small>Execute Handler</small></div>
             </div>
         </section>
 
-        <footer>
-            VANILLASPA ARCHITECTURE // DESIGNED FOR RADIANCE // 2026
-        </footer>
+        <footer>VANILLASPA // ARCHITECTURE OF RADIANCE // 2026</footer>
     </div>
 </body>
-
-<script>
-    (function () {
-        const pulses = {
-            A: document.getElementById('pulse-A'),
-            B: document.getElementById('pulse-B'),
-            C: document.getElementById('pulse-C')
-        };
-
-        /**
-         * Triggers a pulse animation safely
-         * @param {HTMLElement} el - The pulse element
-         */
-        function trigger(el) {
-            // 1. Remove classes to reset state
-            el.classList.remove('active');
-
-            // 2. Force a "reflow" (this is the magic trick for CSS animations)
-            // It tells the browser: "Stop what you're doing and calculate the layout now."
-            void el.offsetWidth;
-
-            // 3. Re-add the class to start the animation
-            el.classList.add('active');
-        }
-
-        function sequence() {
-            // Pulse A: Component broadcasts intent (Forward)
-            trigger(pulses.A);
-
-            // Pulse B: Slight delay, following the first event (Forward)
-            setTimeout(() => trigger(pulses.B), 400);
-
-            // Pulse C: The Module Handler responds/acknowledges (Backward)
-            // Triggered after A and B have reached the other side
-            setTimeout(() => trigger(pulses.C), 2000);
-        }
-
-        // Start the first run
-        sequence();
-
-        // Run the sequence every 5 seconds
-        setInterval(sequence, 5000);
-
-    })();
-</script>
 
 </html>
